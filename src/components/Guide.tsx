@@ -4,70 +4,83 @@ import Button from './Button'
 
 const Guide = () => {
   return (
-    <section className="py-10 -mt-10"> {/* Added mb-20 */}
+    <section className="py-20 bg-gradient-to-b from-[#FAF5FF] to-white">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col mx-4 px-4 lg:flex-row justify-between items-center gap-0">
-          <div className='lg:w-5/12'>
-            <Image src="/shri-mataji2.svg" alt="camp" width={700} height={300} />
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
+          {/* Image */}
+          <div className="lg:w-5/12 flex justify-center">
+            <Image
+              src="/maaaa.jpg"
+              alt="Shri Mataji"
+              width={500}
+              height={500}
+              className="w-full h-auto object-contain"
+              priority
+            />
           </div>
-          <div className='lg:w-6/12'>
-            <p className="uppercase bold-24 mt-4 mb-2 text-[#8A1457]">
-              OUR MOTHER
+
+          {/* Text Content */}
+          <div className="lg:w-6/12 space-y-6">
+            <p className="uppercase tracking-wide text-lg font-semibold text-[#7C3A58]">
+              Our Mother
             </p>
-            <div className='flex flex-row items-center gap-4 mb-6'>
-              <h2 className="text-3xl lg:text-4xl font-bold text-[#8A1457]">
-                Shri Mataji
-              </h2>
-              <Button 
-                type="button" 
-                title="Know More" 
+            <div className="flex items-center gap-4">
+              <h2 className="text-4xl font-bold text-[#7C3A58]">Shri Mataji</h2>
+              <Button
+                type="button"
+                title="Know More"
                 icon="/play.svg"
-                variant="btn_white_text" 
+                variant="btn_white_text"
               />
             </div>
-            <p className="text-lg text-gray-700 leading-relaxed">
-              Shri Mataji Nirmala Devi was an extremely charismatic, dynamic and divine personality who radiated nothing but love. She had absolute unconditional love – nirvajya prema (निर्व्याज प्रेम) – with which she saw the spiritual potential of people and the heart of divinity in all creation. It emanated from her like a relentless magnetic force. To see this magnetism in action in one of her many thousands of programs was to bear witness to the care, compassion, and command with which she attended to the woes and worries of those who sought her guidance until each question had found its answer, all sound was replaced with profound silence, and a glint of light shone bright in eyes that beheld that which was right. Truly an awe inspiring personality.
+            <p className="text-gray-700 text-lg leading-relaxed">
+              Shri Mataji Nirmala Devi was an extraordinarily charismatic and compassionate spiritual figure. Her presence radiated pure love — a divine force that saw the potential in every human soul. She addressed the seekers of truth with deep care, often transforming their confusion into clarity and silence with a single glance. Her legacy is not just in words, but in the awakening she offered to thousands around the world.
             </p>
           </div>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 mt-20 relative">
-        <Image 
+      {/* Sahaja Krishi Section */}
+      <div className="container mx-auto px-4 mt-24 relative">
+        <Image
           src="/boat1.png"
           alt="Farming landscape"
           width={1440}
           height={380}
-          className="w-full h-auto object-cover object-center rounded-lg"
+          className="w-full h-auto object-cover rounded-xl shadow-md"
         />
-        <div className="relative lg:absolute lg:left-12 top-4 lg:top-12 bg-white p-6 rounded-lg shadow-lg max-w-md mx-auto lg:mx-0 mt-4 lg:mt-0">
-        <div className='flex flex-row items-center gap-4 mb-6'>
-          <h2 className="text-3xl lg:text-4xl font-bold text-[#8A1457]">
-            Sahaja Krishi
-          </h2>
-          <Button 
-            type="button" 
-            title="Read More 🍏" 
-            // icon="/play.svg"
-            variant="btn_white_text" 
-          />
+
+        <div className="relative lg:absolute lg:left-16 top-4 lg:top-16 bg-white/90 backdrop-blur-md p-8 rounded-xl shadow-2xl max-w-xl mx-auto lg:mx-0 mt-6 lg:mt-0">
+          <div className="flex items-center gap-4 mb-4">
+            <h2 className="text-3xl font-bold text-[#7C3A58]">Sahaja Krishi</h2>
+            <Button
+              type="button"
+              title="Read More 🍏"
+              variant="btn_white_text"
+            />
+          </div>
+          <p className="text-gray-700 text-base leading-relaxed mb-6">
+            Sahaja Krishi is the practice of agriculture guided by spiritual vibrations known as "Param Chaitanya". These vibrations can purify and energize elements like soil, seeds, and water, promoting harmonious growth in plants, animals, and the environment.
+          </p>
+
+          <h3 className="text-xl font-bold text-[#7C3A58] text-center mb-4">
+            Our Impact
+          </h3>
+
+          <div className="grid grid-cols-2 gap-6">
+            {[
+              { label: 'Countries Reached', value: '120+' },
+              { label: 'Agricultural Products', value: '6K+' },
+              { label: 'Happy Farmers', value: '10K+' },
+              { label: 'Years of Excellence', value: '45+' },
+            ].map((item, index) => (
+              <div key={index} className="text-center">
+                <p className="text-3xl font-bold text-[#7C3A58]">{item.value}</p>
+                <p className="text-sm text-gray-600">{item.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
-        <p className="text-lg text-gray-600">Any agricultural production or Animal Farming using Sahaja Yoga Techniques is called Sahaja Krishi. An electromagnetic vibration called "Param Chaitanya" which governs five elements (Earth, Water, Fire, Wind, Sky) can bring positive transformation in Plants, Animals, Fish, Birds etc. The "Param Chaitanya" can transform agricultural products such as Seeds, Feeds, Water etc., which are then used for routine Agricultural Production.</p>
-        <h3 className="text-2xl font-bold text-[#8A1457] mb-4 mt-4 text-center">Our Impact</h3>
-        <div className="grid grid-cols-2 gap-4">
-          {[
-            { label: 'Countries Reached', value: '120+' },
-            { label: 'Agricultural Products', value: '6K+' },
-            { label: 'Happy Farmers', value: '10K+' },
-            { label: 'Years of Excellence', value: '45+' },
-          ].map((item, index) => (
-            <div key={index} className="text-center">
-              <p className="text-3xl font-bold text-[#8A1457]">{item.value}</p>
-              <p className="text-sm text-gray-600">{item.label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
       </div>
     </section>
   )

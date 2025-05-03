@@ -13,43 +13,40 @@ interface CenterFormPayload {
   contactNumbers: string;
 }
 
-connect();
-
 export async function POST(request: NextRequest) {
+  await connect();
+
   try {
     const body: CenterFormPayload = await request.json();
+
     vine.errorReporter = () => new ErrorReporter();
     const validator = vine.compile(centerSchema);
     const output = await validator.validate(body);
 
-    try {
-      await Center.create(output);
-      return NextResponse.json(
-        { status: 200, msg: "Center added successfully!" },
-        { status: 200 }
-      );
-    } catch (error) {
-      return NextResponse.json({ error }, { status: 500 });
-    }
-  } catch (error) {
+    await Center.create(output);
+
+    console.log("✅ Center created successfully:", output);
+
+    return NextResponse.json({ msg: "Center added successfully!" }, { status: 200 });
+  } catch (error: any) {
+    console.error("❌ Error adding center:", error);
+
     if (error instanceof errors.E_VALIDATION_ERROR) {
-      return NextResponse.json(
-        { status: 400, errors: error.messages },
-        { status: 200 }
-      );
+      return NextResponse.json({ errors: error.messages }, { status: 400 });
     }
+
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
 export async function GET() {
+  await connect();
+
   try {
     const centers = await Center.find({}).sort({ createdAt: -1 });
     return NextResponse.json(centers, { status: 200 });
   } catch (error) {
-    console.error("Error fetching centers:", error);
-    return NextResponse.json(
-      { error: "Internal Server Error" },
-      { status: 500 }
-    );
+    console.error("❌ Error fetching centers:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }

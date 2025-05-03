@@ -24,8 +24,15 @@ export default function SignUp() {
 
   // Function to check if the Dhanvantari answer is correct
   const checkDhanvantariAnswer = (answer: string) => {
-    const correctAnswers = ['dhanvantari', 'dhanwantari', 'dhanwantri', 'dhnwantri', 'dhnwntri'];
-    return correctAnswers.includes(answer.toLowerCase().trim());
+    const normalized = answer.toLowerCase().trim();
+  
+    const validSubstrings = [
+      'dhanvantari', 'dhanwantari', 'dhanwantri', 'dhnwantri', 'dhnwntri',
+      'dhanvanthari', 'dhanvantri', 'dhanvathari', 'dhanvathri', 'dhanvanthri',
+      'dhanvantree', 'dhanwanthri', 'dhanwantharee'
+    ];
+  
+    return validSubstrings.some(substring => normalized.includes(substring));
   };
 
   const handleDhanvantariChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,7 +83,7 @@ export default function SignUp() {
           <div className="absolute inset-0">
             <img
               className="h-full w-full object-cover object-center"
-              src="/sahaja.jpg"
+              src="/pune.jpeg"
               alt=""
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>

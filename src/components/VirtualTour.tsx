@@ -3,26 +3,26 @@ import SectionTitle from './SectionTitle';
 
 const VirtualTour = () => {
   return (
-    <section className="py-16 bg-[#FEF5E7]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionTitle title="Virtual Tour" />
+    <section id="VirtualTour" className="py-20 bg-[#FEF5E7]">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionTitle title="Experience it now!" />
         
-        <div className="bg-white shadow-md rounded-lg overflow-hidden p-6">
-          <div className="aspect-w-16 aspect-h-9">
-            <iframe 
-              src="https://www.youtube.com/embed/jre0HE9ZSbI"
-              title="Virtual Tour of Sahaja Yoga Center" 
-              frameBorder="0" 
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        <div className="bg-white shadow-xl rounded-2xl overflow-hidden p-6 md:p-10">
+          <div className="relative w-full pb-[56.25%] h-0 rounded-lg overflow-hidden">
+            <iframe
+              src="https://www.youtube.com/embed/wIfjGQDAcdI?si=VpyUB-iWskYTRaJq"
+              title="Virtual Tour of Sahaja Yoga Center"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
-              className="w-full h-full rounded-lg"
+              className="absolute top-0 left-0 w-full h-full rounded-lg"
             ></iframe>
           </div>
-          
-          <div className="mt-8 flex justify-center">
-            <a 
-              href="#"
-              className="bg-[#E75C3C] hover:bg-[#C33F23] text-white font-medium px-8 py-3 rounded-md inline-flex items-center transition-colors"
+
+          <div className="mt-10 flex justify-center">
+            <a
+              href="#VirtualTour"
+              className="bg-[#D04F36] hover:bg-[#B63C26] text-white font-medium px-8 py-3 rounded-full inline-flex items-center transition-colors"
             >
               Let's Experience It
               <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
@@ -36,4 +36,4 @@ const VirtualTour = () => {
   );
 };
 
-export default VirtualTour; 
+export default VirtualTour;

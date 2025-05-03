@@ -53,18 +53,18 @@ export async function POST(request: NextRequest) {
           }
         }
         
-        // Check if this person has already registered for this event
-        const existingRegistration = await EventRegistration.findOne({
-          eventId,
-          name: participant.name
-        });
+        // // Check if this person has already registered for this event
+        // const existingRegistration = await EventRegistration.findOne({
+        //   eventId,
+        //   name: participant.name
+        // });
         
-        if (existingRegistration) {
-          return NextResponse.json({
-            status: 400,
-            message: `${participant.name} has already registered for this event.`,
-          }, { status: 400 });
-        }
+        // if (existingRegistration) {
+        //   return NextResponse.json({
+        //     status: 400,
+        //     message: `${participant.name} has already registered for this event.`,
+        //   }, { status: 400 });
+        // }
         
         // Validate email format
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -145,17 +145,17 @@ export async function POST(request: NextRequest) {
       }
       
       // Check if this person has already registered for this event
-      const existingRegistration = await EventRegistration.findOne({
-        eventId: body.eventId,
-        name: body.name
-      });
+      // const existingRegistration = await EventRegistration.findOne({
+      //   eventId: body.eventId,
+      //   name: body.name
+      // });
       
-      if (existingRegistration) {
-        return NextResponse.json({
-          status: 400,
-          message: `${body.name} has already registered for this event.`,
-        }, { status: 400 });
-      }
+      // if (existingRegistration) {
+      //   return NextResponse.json({
+      //     status: 400,
+      //     message: `${body.name} has already registered for this event.`,
+      //   }, { status: 400 });
+      // }
       
       // Validate email format
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

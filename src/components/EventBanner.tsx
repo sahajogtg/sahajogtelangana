@@ -95,31 +95,42 @@ export default function EventBanner() {
   }
 
   return (
-    <div id="events" className="bg-[#FBECDF] py-6 w-full">
-      <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center mb-4">
-          <div className="md:w-1/3 mb-4 md:mb-0">
-            <h2 className="text-[#E39321] font-serif italic text-3xl md:text-4xl tracking-wide text-center md:text-left">
-              SahajaYoga Odisha
-            </h2>
-          </div>
-          <div className="md:w-2/3">
-            <h2 className="text-2xl font-bold text-[#8A1457] mb-2 text-center">Upcoming Events</h2>
-          </div>
+    <div id="events" className="bg-[#FBECDF] py-10 w-full">
+    <div className="container mx-auto px-4">
+      <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
+        {/* Left Block - Org Name */}
+        <div className="md:w-1/2 text-center md:text-left">
+          <h2 className="text-[#E39321] text-3xl md:text-4xl font-semibold leading-snug">
+            Sahaja Yoga Telangana
+          </h2>
+          <p className="text-[#8A1457] mt-2 text-base md:text-lg font-medium">
+            Spreading Inner Peace Through Meditation
+          </p>
         </div>
+  
+        {/* Right Block - Title */}
+        <div className="md:w-1/2 text-center">
+          <h3 className="text-[#8A1457] text-2xl md:text-3xl font-bold tracking-wide">
+            ✨ Upcoming Events ✨
+          </h3>
+          <p className="text-gray-700 mt-1 text-sm md:text-base">
+            Join our collective meditations and pujas across Telangana.
+          </p>
+        </div>
+      </div>
         
         <Slider {...sliderSettings}>
           {events.map((event) => (
-            <div key={event._id} className="focus:outline-none">
-              <div className="bg-white rounded-lg shadow-md overflow-hidden py-3 px-4">
+            <div key={event._id} className="focus:outline-none px-2">
+              <div className="bg-white rounded-2xl shadow-md overflow-hidden p-5 transition-all duration-300 hover:shadow-xl">
                 <div className="flex flex-col md:flex-row items-center">
                   <div className="md:w-1/4 flex justify-center md:justify-start mb-4 md:mb-0">
                     {event.image ? (
-                      <div className="h-32 w-32 overflow-hidden rounded-lg border-2 border-[#8A1457]">
+                      <div className="h-32 w-full overflow-hidden rounded-xl border-2 border-[#8A1457] shadow-sm">
                         <img 
                           src={event.image} 
                           alt={event.title} 
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover transition-transform duration-200 hover:scale-105"
                         />
                       </div>
                     ) : (

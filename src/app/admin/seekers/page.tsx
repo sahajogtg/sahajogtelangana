@@ -46,7 +46,7 @@ export default function SeekersPage() {
     <div className="p-8">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">Seekers</h1>
-        <Link href="https://sy.sahajayogatelangana.org/add-seeker" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+        <Link href="/add-seeker" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
           Add Seeker
         </Link>
       </div>

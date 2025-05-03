@@ -8,4 +8,5 @@ export function connect() {
     })
     .then(() => console.log("Database connected successfully"))
     .catch((err) => console.log("The DB error is", err));
-}
+
+  }

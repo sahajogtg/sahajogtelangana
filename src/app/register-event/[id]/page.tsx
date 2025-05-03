@@ -568,7 +568,7 @@ export default function EventRegistration({ params }: { params: { id: string } }
                 <div className="bg-white border border-gray-200 rounded-lg p-6 mb-4" ref={receiptRef}>
                   <div className="flex justify-between items-center mb-6">
                     <div>
-                      <h4 className="text-xl font-bold text-gray-800">Sahaja Yoga Odisha</h4>
+                      <h4 className="text-xl font-bold text-gray-800">Sahaja Yoga Telangana</h4>
                       <p className="text-sm text-gray-600">Event Registration Receipt</p>
                     </div>
                     <div className="text-right">
@@ -950,7 +950,7 @@ export default function EventRegistration({ params }: { params: { id: string } }
                     
                     <div className="mb-4">
                       <label htmlFor="transactionNumber" className="block text-gray-700 font-medium mb-2">
-                        Transaction Number *
+                        Transaction ID / UPI Transaction ID *
                       </label>
                       <input
                         type="text"
@@ -986,7 +986,7 @@ export default function EventRegistration({ params }: { params: { id: string } }
                 </div>
                 
                 <div className="md:w-1/2 md:pl-6 mt-8 md:mt-0">
-                  <div className="bg-gray-50 p-4 rounded-md">
+                  <div className="p-4 rounded-md">
                     <h3 className="text-lg font-semibold mb-4 text-center">Payment Information</h3>
                     <p className="mb-4 text-center">Please scan the QR code to make the payment</p>
                     
@@ -1003,7 +1003,7 @@ export default function EventRegistration({ params }: { params: { id: string } }
                     <div className="text-sm text-gray-600 space-y-2">
                       <p className="font-medium text-center">Please complete the payment before submitting the form</p>
                       <p>1. Scan the QR code using any UPI app (GooglePay, PhonePe, Paytm, etc.)</p>
-                      <p>2. Pay the registration fee amount {isBulkRegistration ? 'for all participants' : 'based on your age'}</p>
+                      <p>2. Pay the registration fee amount {isBulkRegistration ? 'for all participants' : 'based on your category'}</p>
                       <p>3. Enter the transaction ID/reference number in the form</p>
                       <p>4. Submit the registration form</p>
                     </div>

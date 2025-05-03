@@ -70,13 +70,13 @@ const Camp = () => {
             title="📌 Centers Near Me" 
             variant="btn_white_text" 
             />
-          <Image 
+          {/* <Image 
             src="/quote.svg"
             alt="camp-2"
             width={186}
             height={219}
             className="camp-quote"
-          />
+          /> */}
         </div>
       </div>
     </section>

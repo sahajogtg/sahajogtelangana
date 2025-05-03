@@ -47,7 +47,7 @@ export async function sendRegistrationEmail(data: RegistrationEmailData) {
     <body>
       <div class="container">
         <div class="header">
-          <h2>Sahaja Yoga Odisha</h2>
+          <h2>Sahaja Yoga Telangana</h2>
           <p>Event Registration Receipt</p>
         </div>
         
@@ -80,7 +80,7 @@ export async function sendRegistrationEmail(data: RegistrationEmailData) {
         
         <div class="footer">
           <p>Thank you for registering for the event!</p>
-          <p>For any inquiries, please contact us at info@sahajayogaodisha.org</p>
+          <p>For any inquiries, please contact us at info@sahajayogatelangana.org</p>
         </div>
       </div>
     </body>
@@ -89,7 +89,7 @@ export async function sendRegistrationEmail(data: RegistrationEmailData) {
 
   // Send mail with defined transport object
   const info = await transporter.sendMail({
-    from: `"Sahaja Yoga Odisha" <${process.env.EMAIL_USER}>`,
+    from: `"Sahaja Yoga Telangana" <${process.env.EMAIL_USER}>`,
     to: data.email,
     subject: `Registration Confirmation - ${data.eventTitle}`,
     html: htmlContent,

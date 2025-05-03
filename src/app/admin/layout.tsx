@@ -10,7 +10,7 @@ const menuItems = [
   { name: "Event Registrations", icon: <MdHowToReg size={24} />, href: "/admin/event-registrations" },
   { name: "Messages", icon: <MdMessage size={24} />, href: "/admin/messages" },
   { name: "Program Requests", icon: <MdEvent size={24} />, href: "/admin/program-requests" },
-  // { name: "Add New Center", icon: <MdAddLocation size={24} />, href: "/admin/add-center" },
+  { name: "Add New Center", icon: <MdAddLocation size={24} />, href: "/admin/add-center" },
 ];
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {

@@ -12,7 +12,7 @@ const menuItems = [
   { name: "Seekers", icon: <MdPeople size={24} />, href: "/admin/seekers" },
   { name: "Messages", icon: <MdMessage size={24} />, href: "/admin/messages" },
   { name: "Program Requests", icon: <MdEvent size={24} />, href: "/admin/program-requests" },
-  // { name: "Add New Center", icon: <MdAddLocation size={24} />, href: "/admin/add-center" },
+  { name: "Add New Center", icon: <MdAddLocation size={24} />, href: "/admin/add-center" },
 ];
 
 export default async function AdminDashboard() {

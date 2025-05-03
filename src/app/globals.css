@@ -6,21 +6,21 @@
 @tailwind components;
 @tailwind utilities;
 
+/* === ROOT VARIABLES === */
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 254, 245, 231;
   --background-end-rgb: 254, 245, 231;
-  --primary-color: #8A1457; /* Deep maroon/purple color from the image */
-  --secondary-color: #E39321; /* Golden color from the logo */
-  --accent-color: #FBECDF; /* Light cream/beige color */
-  --background-color: #FEF5E7; /* Cream/beige background from the image */
+  --primary-color: #8A1457;
+  --secondary-color: #E39321;
+  --accent-color: #FBECDF;
+  --background-color: #FEF5E7;
   --text-light: #FFFFFF;
   --text-dark: #333333;
-  
-  /* Vibrant gradient colors */
-  --gradient-start: #F44336; /* Vibrant red */
-  --gradient-middle: #E91E63; /* Pink/magenta */
-  --gradient-end: #FF9800; /* Orange */
+
+  --gradient-start: #fde1e1;
+  --gradient-middle: #f7cdd6;
+  --gradient-end: #e4f7f4;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -31,10 +31,13 @@
   }
 }
 
+/* === GLOBAL STYLES === */
 body {
   color: rgb(var(--foreground-rgb));
   background: var(--background-color);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Raleway', 'Inter', 'Ubuntu', sans-serif;
+  line-height: 1.7;
+  scroll-behavior: smooth;
 }
 
 * {
@@ -43,29 +46,32 @@ body {
   box-sizing: border-box;
 }
 
-p{
+p {
   font-family: 'Raleway', sans-serif;
 }
 
-@custom-media --3xl (min-width: 1680px);
-
+/* === TAILWIND LAYERS === */
 @layer utilities {
-  .btn_white { 
-    @apply  border-white bg-white px-8 py-3 text-green-50
+  .btn_white {
+    @apply border-white bg-white px-8 py-3 text-green-50;
   }
-  .btn_white_text  { 
-    @apply  border-white bg-white px-8 py-3 text-gray-90
+
+  .btn_white_text {
+    @apply border-white bg-white px-8 py-3 text-gray-900;
   }
-  .btn_green  { 
-    @apply  border-green-50 bg-green-600 px-8 py-5 text-white
+
+  .btn_green {
+    @apply border-green-50 bg-green-600 px-8 py-5 text-white;
   }
-  .btn_dark_green { 
-    @apply  bg-green-90 px-8 py-4 text-white transition-all hover:bg-black
+
+  .btn_dark_green {
+    @apply bg-green-900 px-8 py-4 text-white transition-all hover:bg-black;
   }
-  .btn_dark_green_outline  { 
-    @apply border-gray-20 bg-green-90 px-8 py-5 text-white
+
+  .btn_dark_green_outline {
+    @apply border-gray-200 bg-green-900 px-8 py-5 text-white;
   }
-  
+
   .max-container {
     @apply mx-auto max-w-[1440px];
   }
@@ -90,7 +96,20 @@ p{
     @apply flex items-center justify-end;
   }
 
-  /* FONTS */
+  /* Typography Utilities */
+  .heading-xl {
+    @apply text-5xl font-bold tracking-tight text-[color:var(--primary-color)];
+  }
+
+  .subheading {
+    @apply text-xl font-semibold text-[color:var(--text-dark)];
+  }
+
+  .paragraph {
+    @apply text-base leading-relaxed text-[#4B2E39];
+  }
+
+  /* Font Sizes */
   .regular-64 {
     @apply text-[64px] font-[400] leading-[120%];
   }
@@ -159,86 +178,91 @@ p{
     @apply text-[16px] font-[700];
   }
 
-  /* Hero */
-  .hero-map {
-    @apply absolute right-0 top-0 h-screen w-screen bg-pattern-2 bg-cover bg-center md:-right-28 xl:-top-60;
+  /* Shadow & Effects */
+  .shadow-soft {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
   }
 
-  /* Camp */
-  .camp-quote {
-    @apply absolute -right-6 bottom-4 w-[140px] lg:bottom-10 xl:-right-8 xl:w-[186px] 3xl:right-0;
+  .transition-smooth {
+    transition: all 0.3s ease-in-out;
   }
 
-  /* Feature */
-  .feature-phone {
-    @apply absolute top-[13%] z-10 hidden max-w-[1500px]  md:-left-16 lg:flex  3xl:left-20;
+  /* Card Styling */
+  .card-soft {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(16px);
+    border-radius: 1.25rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
   }
 
-  /* Get App */
-  .get-app {
-    @apply max-container relative flex w-full  flex-col justify-between overflow-hidden bg-green-600  bg-cover bg-center bg-no-repeat px-6 py-12 text-white sm:flex-row sm:gap-0 sm:py-24 lg:px-20 xl:max-h-[598px] 2xl:rounded-5xl;
+  .card-soft:hover {
+    background: rgba(255, 255, 255, 0.5);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.1);
   }
-}
 
-/* Hide scrollbar for Chrome, Safari and Opera */
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
+  /* Section Styling */
+  .section-soft {
+    background: linear-gradient(
+      90deg,
+      var(--gradient-start),
+      var(--gradient-middle),
+      var(--gradient-end)
+    );
+    padding: 4rem 0;
+  }
 
-/* Hide scrollbar for IE, Edge and Firefox */
-.hide-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
-}
+  .section-banner {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 0.75rem 0;
+  }
 
-.youtube-container {
-  position: relative;
-  padding-bottom: 56.25%; /* 16:9 ratio */
-  height: 0;
-  overflow: hidden;
-}
+  .header-gradient {
+    background-image: linear-gradient(to right, #8A1457, #62103D);
+    color: white;
+  }
 
-.youtube-container iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
+  /* Custom containers */
+  .shrine-container {
+    @apply container mx-auto px-4;
+  }
 
-/* Custom button styles */
-.btn-primary {
-  @apply bg-[#8A1457] text-white hover:bg-[#6A0F43] py-2 px-6 rounded-md transition-colors duration-200;
-}
+  /* Carousel dots */
+  .slick-dots li button:before {
+    color: var(--primary-color) !important;
+  }
 
-.btn-secondary {
-  @apply bg-[#E39321] text-white hover:bg-[#C37D1D] py-2 px-6 rounded-md transition-colors duration-200;
-}
+  .slick-dots li.slick-active button:before {
+    color: var(--primary-color) !important;
+    opacity: 1 !important;
+  }
 
-/* Custom header styles */
-.header-gradient {
-  background-color: var(--primary-color);
-  background-image: linear-gradient(to right, #8A1457, #62103D);
-}
+  /* Video */
+  .youtube-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+  }
 
-/* Custom section styles */
-.section-banner {
-  background-color: var(--primary-color);
-  color: var(--text-light);
-  padding: 0.75rem 0;
-}
+  .youtube-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 
-/* Custom container */
-.shrine-container {
-  @apply container mx-auto px-4;
-}
+  /* Scrollbar */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
 
-/* Carousel dots customization */
-.slick-dots li button:before {
-  color: var(--primary-color) !important;
-}
-
-.slick-dots li.slick-active button:before {
-  color: var(--primary-color) !important;
-  opacity: 1 !important;
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

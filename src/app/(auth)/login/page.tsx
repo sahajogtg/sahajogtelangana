@@ -95,7 +95,7 @@ export default function SignInOne() {
           <div className="absolute inset-0">
             <img
               className="h-full w-full  object-cover object-top"
-              src="/sahaja.jpg"
+              src="/pune.jpeg"
               alt=""
             />
           </div>
@@ -113,16 +113,7 @@ export default function SignInOne() {
             <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl">
               Login
             </h2>
-            <p className="mt-2 text-base text-gray-600">
-              Don't have an account?
-              <Link
-                href="/register"
-                title=""
-                className="font-medium text-black transition-all duration-200 hover:underline ml-2"
-              >
-                Sign Up
-              </Link>
-            </p>
+            
             <form action="#" method="POST" className="mt-8">
               <div className="space-y-5">
                 <div>
@@ -182,6 +173,16 @@ export default function SignInOne() {
                   >
                     {loading ? "Processing.." : "Login"}
                   </button>
+                  <div className="mt-4">
+                  <Link href="/register">
+                    <button
+                      type="button"
+                      className="inline-flex w-full items-center justify-center rounded-md bg-blue-500 hover:bg-blue-600 px-3.5 py-2.5 font-semibold leading-7 text-white transition-all duration-200"
+                    >
+                      Create Account
+                    </button>
+                  </Link>
+                </div>
                 </div>
               </div>
             </form>
@@ -233,7 +234,7 @@ export default function SignInOne() {
               >
                 Sign in with Magic Link
               </Link>
-            </div> */} *
+            </div> */} 
           </div>
         </div>
       </div>

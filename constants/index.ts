@@ -4,9 +4,9 @@ export const NAV_LINKS = [
     { href: '/shri-mataji', key: 'shri_mataji', label: 'Shri Mataji' },
     { href: '/sahaja-yoga', key: 'sahaja_yoga', label: 'Sahaja Yoga' },
     { href: '/centers', key: 'centers ', label: 'Centers ' },
-    { href: '/#events', key: 'events', label: 'Upcoming Events' },
+    { href: '/events', key: 'events', label: 'Upcoming Events' },
     // { href: '/pujas', key: 'pujas ', label: 'Pujas ' },
-    { href: '/#get-app', key: 'contact_us', label: 'Contact Us' },
+    { href: '/contact-us', key: 'contact_us', label: 'Contact Us' },
   ];
   
   // CAMP SECTION

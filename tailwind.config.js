@@ -35,9 +35,9 @@ module.exports = {
         vibrantYellow: '#fec601',
       },
       backgroundImage: {
-        'bg-img-1': "url('/slide1.svg')",
-        'bg-img-2': "url('/slide3.svg')",
-        'bg-img-3': "url('/slide2.svg')",
+        'bg-img-1': "url('/pp2.jpg')",
+        'bg-img-2': "url('/pp1.jpg')",
+        'bg-img-3': "url('/pp3.jpeg')",
         'feature-bg': "url('/feature-bg.png')",
         pattern: "url('/pattern.png')",
         'pattern-2': "url('/pattern-bg.png')",

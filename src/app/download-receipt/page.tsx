@@ -223,7 +223,7 @@ export default function DownloadReceipt() {
                 <div className="bg-white border border-gray-200 rounded-lg p-6 mb-4" ref={receiptRef}>
                   <div className="flex justify-between items-center mb-6">
                     <div>
-                      <h4 className="text-xl font-bold text-gray-800">Sahaja Yoga Odisha</h4>
+                      <h4 className="text-xl font-bold text-gray-800">Sahaja Yoga Telangana</h4>
                       <p className="text-sm text-gray-600">Event Registration Receipt</p>
                     </div>
                     <div className="text-right">

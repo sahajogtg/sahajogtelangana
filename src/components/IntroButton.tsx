@@ -16,8 +16,10 @@ const IntroButton = () => {
   return (
     <section className="max-container padding-container flex flex-col gap-20 md:gap-28 xl:flex-row ">      
         <div className="mt-10 mx-auto">
-            <h3 className="bold-24 text-center text-[#8A1457]">Download Introduction Booklet</h3>
-            <div className="flex flex-col mt-3 w-full gap-2 sm:flex-row">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-[#8A1457]">
+          Download Introduction Booklet
+        </h2>
+            <div className="flex flex-col mt-3 w-full gap-2 sm:flex-row  items-center justify-center">
               <button 
                 onClick={() => downloadPDF('hindi-booklet.pdf')}
                 className="flexCenter gap-3 rounded-full border btn_green"
