@@ -9,7 +9,6 @@ import Guide from "@/components/Guide";
 import Features from "@/components/Features";
 import IntroButton from "@/components/IntroButton";
 import EventBanner from "@/components/EventBanner";
-import AboutUs from "@/components/AboutUs";
 import VirtualTour from "@/components/VirtualTour";
 import ContactUs from "@/components/ContactUs";
 
@@ -38,7 +37,7 @@ export default function HomeClient() {
     <div className="bg-[#FEF5E7]">
       {session && <EventBanner />} {/* Show only when logged in */}
       <Hero />
-      <AboutUs />
+      {/* <AboutUs /> */}
       <VirtualTour />
       <IntroButton />
       <Camp />
