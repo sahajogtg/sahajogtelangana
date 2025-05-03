@@ -22,12 +22,14 @@ const CentersTable: React.FC = () => {
   if (isLoading) return <div className="text-center mt-4">Loading centers...</div>;
 
   return (
-    <div className="overflow-x-auto mx-4 lg:mx-6">
+    <div className="mx-4 lg:mx-6">
       <h1 className="text-4xl text-[#8A1457] font-bold text-center mb-8">Do Visit Us 😇</h1>
-      <div className="border-4 border-green-600 rounded-lg overflow-hidden">
+
+      {/* Desktop Table View */}
+      <div className="hidden md:block overflow-x-auto rounded-lg">
         <table className="min-w-full border-collapse">
           <thead>
-            <tr className="bg-gray-700">
+            <tr className="bg-[#9d5a5a]">
               <th className="p-2 text-left text-white">Address</th>
               <th className="p-2 text-left text-white">Day</th>
               <th className="p-2 text-left text-white">Time</th>
@@ -37,7 +39,7 @@ const CentersTable: React.FC = () => {
           </thead>
           <tbody>
             {centers.map((center, index) => (
-              <tr key={center._id} className={index % 2 === 0 ? "bg-white text-black" : "bg-[#8A1457] text-white"}>
+              <tr key={center._id} className={index % 2 === 0 ? "bg-white text-black" : "bg-[#9d5a5a] text-white"}>
                 <td className="p-2">{center.address}</td>
                 <td className="p-2">{center.day}</td>
                 <td className="p-2">{center.time}</td>
@@ -49,10 +51,23 @@ const CentersTable: React.FC = () => {
         </table>
       </div>
 
+      {/* Mobile Card View */}
+      <div className="block md:hidden space-y-4">
+        {centers.map(center => (
+          <div key={center._id} className="bg-white rounded-lg shadow-md p-4 border">
+            <p className="text-sm"><span className="font-semibold">Address:</span> {center.address}</p>
+            <p className="text-sm"><span className="font-semibold">Day:</span> {center.day}</p>
+            <p className="text-sm"><span className="font-semibold">Time:</span> {center.time}</p>
+            <p className="text-sm"><span className="font-semibold">Contact Person:</span> {center.contactPersons}</p>
+            <p className="text-sm"><span className="font-semibold">Contact No.:</span> {center.contactNumbers}</p>
+          </div>
+        ))}
+      </div>
+
       <div className="mt-8 text-center">
         <p className="text-2xl font-bold text-[#8A1457] mb-4">IT'S ALWAYS FREE!</p>
         <p className="text-lg">
-          If you want to find centers apart from Chhattisgarh state, please find them{" "}
+          If you want to find centers apart from Telangana state, please find them{" "}
           <a
             href="https://sycenters.org/centers"
             target="_blank"
@@ -78,4 +93,3 @@ const Page: React.FC = () => {
 };
 
 export default Page;
-
