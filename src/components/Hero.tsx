@@ -2,7 +2,7 @@ import Image from 'next/image'
 
 const Hero = () => {
   return (
-    <section className="relative w-full bg-white text-[#5B2C41] overflow-hidden py-20">
+    <section className="relative w-full bg-white text-[#5B2C41] overflow-hidden py-10 md:py-20">
       <div className="max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center">
         
         {/* Left Content */}
