@@ -75,8 +75,8 @@ export const NAV_LINKS = [
   export const FOOTER_CONTACT_INFO = {
     title: 'Contact Us',
     links: [
-      { label: 'Coordinator', value: '+91-7008332475' },
-      { label: 'Email', value: 'Samarjit.sahaj@gmail.com' },
+      { label: 'Coordinator', value: '+91 898 898 22 00' },
+      { label: 'Email', value: 'sahajayogatelangana@gmail.com' },
     ],
   };
   

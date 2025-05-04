@@ -2,7 +2,7 @@
 
 ## Authentication Overview
 
-The Sahaja Yoga Odisha website uses NextAuth.js for authentication, providing secure user login and registration functionality. The authentication system supports credential-based (email/password) authentication, with optional support for OAuth providers like Google and GitHub.
+The Sahaja Yoga Telangana website uses NextAuth.js for authentication, providing secure user login and registration functionality. The authentication system supports credential-based (email/password) authentication, with optional support for OAuth providers like Google and GitHub.
 
 ## Authentication Components
 
@@ -116,5 +116,5 @@ For testing purposes, we've added a sample event to the Events component:
 - **Title**: Shri Krishna Puja 2025
 - **Description**: Three-day event featuring meditation, music, collective gatherings, and special pujas dedicated to Lord Krishna
 - **Date**: August 15-17, 2025
-- **Location**: Puri, Odisha
+- **Location**: Hyderabad, Telangana
 - **Image**: ShriMatajiKrishnaPuja.jpg (stored in the public directory) 

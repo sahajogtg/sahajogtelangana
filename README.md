@@ -1,6 +1,6 @@
-# Sahaja Yoga Odisha Website
+# Sahaja Yoga Telangana Website
 
-This is a website for Sahaja Yoga Odisha built with Next.js, NextAuth.js for authentication, and MongoDB for database storage.
+This is a website for Sahaja Yoga Telangana built with Next.js, NextAuth.js for authentication, and MongoDB for database storage.
 
 ## Project Structure
 

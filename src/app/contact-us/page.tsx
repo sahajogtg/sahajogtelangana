@@ -163,7 +163,7 @@ export default function ContactPage() {
                   >
                     {loading ? 'Sending...' : 'Send Message'}
                   </button>
-                  <a href="#" className="text-[#8A1457] hover:underline text-sm font-medium">
+                  <a href="/corporate-register" className="text-[#8A1457] hover:underline text-sm font-medium">
                     Or schedule a session
                   </a>
                 </div>

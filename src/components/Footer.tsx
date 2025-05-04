@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="mb-6 md:mb-0 md:w-1/3">
             <Link href="/" className="mb-6 inline-block">
               <div className="relative h-14 w-56">
-                <Image src="/logo-green.svg" alt="Sahaja Yoga Odisha" fill className="object-contain" />
+                <Image src="/logo-green.svg" alt="Sahaja Yoga Telangana" fill className="object-contain" />
               </div>
             </Link>
             <p className="mt-4 text-gray-600 text-sm">
@@ -67,7 +67,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-gray-200 my-2" />
-        <p className="text-sm text-center text-gray-500">© 2025 Sahaja Yoga Odisha | All rights reserved</p>
+        <p className="text-sm text-center text-gray-500">© 2025 Sahaja Yoga Telangana | All rights reserved</p>
       </div>
     </footer>
   )

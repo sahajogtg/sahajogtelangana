@@ -60,7 +60,7 @@ const Guide = () => {
             />
           </div>
           <p className="text-gray-700 text-base leading-relaxed mb-6">
-            Sahaja Krishi is the practice of agriculture guided by spiritual vibrations known as "Param Chaitanya". These vibrations can purify and energize elements like soil, seeds, and water, promoting harmonious growth in plants, animals, and the environment.
+            Sahaja Krishi is the practice of agriculture guided by spiritual vibrations known as "Param Chaitanya". These vibrations can Hyderabadfy and energize elements like soil, seeds, and water, promoting harmonious growth in plants, animals, and the environment.
           </p>
 
           <h3 className="text-xl font-bold text-[#7C3A58] text-center mb-4">

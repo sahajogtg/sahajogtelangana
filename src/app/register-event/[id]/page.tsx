@@ -89,7 +89,7 @@ export default function EventRegistration({ params }: { params: { id: string } }
               description: 'Join us for the auspicious celebration of Shri Krishna Puja 2025. This three-day event will feature meditation, music, collective gatherings, and special pujas dedicated to Lord Krishna. All Sahaja Yogis and seekers are welcome to attend.',
               date: '2025-08-15T00:00:00.000Z',
               time: 'August 15-17, 9:00 AM - 7:00 PM',
-              location: 'Puri, Odisha',
+              location: 'Hyderabad, Telangana',
               image: '/ShriMatajiKrishnaPuja.jpg'
             });
           } else {
@@ -697,7 +697,7 @@ export default function EventRegistration({ params }: { params: { id: string } }
                   
                   <div className="text-center mt-8 text-sm text-gray-600">
                     <p>Thank you for registering for the event!</p>
-                    <p>For any inquiries, please contact us at info@sahajayogaodisha.org</p>
+                    <p>For any inquiries, please contact us at info@sahajayogatelangana.org</p>
                   </div>
                 </div>
                 
@@ -1011,13 +1011,13 @@ export default function EventRegistration({ params }: { params: { id: string } }
                     <div className="mt-6 p-4 bg-[#F8ECF2] rounded-md border border-[#8A1457]">
                       <h4 className="font-medium text-[#8A1457] text-center mb-2">Bank Transfer Details</h4>
                       <div className="text-sm text-gray-700 space-y-1">
-                        <p className="font-medium">H.H SHRI MATAJI NIRMALA DEVI SAHAJA YOGA TRUST</p>
-                        <p>Account No: 149612010001632</p>
-                        <p>IFSC Code: UBIN0814962</p>
-                        <p>Bank: UNION BANK OF INDIA</p>
-                        <p>Branch: IRC VILLAGE, EKAMRA VILLA SQUARE</p>
-                        <p>NAYAPLLI, BHUBNESWAR</p>
-                        <p>PIN: 751015</p>
+                        <p className="font-medium">A/C Name: H H Shri Mataji Nirmala Devi Sahaja Yoga Trust, Hyderabad</p>
+                        <p>Account Number: 104010100131605</p>
+                        <p>Bank Name: Axis Bank</p>
+                        <p>Branch: Road No 12, Banjara Hills, Hyderabad</p>
+                        <p>IFSC Code: UTIB0001798</p>
+                        <p>MICR Code: 500211047</p>
+                        <p>Swift Code: AXISINBB</p>
                       </div>
                     </div>
                   </div>

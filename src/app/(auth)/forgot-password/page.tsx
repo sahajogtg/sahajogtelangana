@@ -46,7 +46,7 @@ export default function ForgotPassword() {
               <label className="block">Email</label>
               <input
                 type="email"
-                placeholder="xxxxx@apcmining.com"
+                placeholder="xxxxx@gmail.com"
                 className="w-full h-10 p-2 border rounded-md outline-red-400"
                 onChange={(event) => setEmail(event.target.value)}
               />

@@ -27,7 +27,7 @@ export default function ForgotPasswordEmail({
       <Hr />
 
       <Heading as="h3">Regards</Heading>
-      <Text>APC Mining Tech Team</Text>
+      <Text>Sahaja Yoga Telangana</Text>
     </Html>
   );
 }

@@ -26,7 +26,7 @@ const sampleEvents: Event[] = [
     description: 'Join us for the auspicious celebration of Shri Krishna Puja 2025. This three-day event will feature meditation, music, collective gatherings, and special pujas dedicated to Lord Krishna. All Sahaja Yogis and seekers are welcome to attend.',
     date: '2025-08-15T00:00:00.000Z',
     time: 'August 15-17, 9:00 AM - 7:00 PM',
-    location: 'Puri, Odisha',
+    location: 'Hyderabad, Telangana',
     image: '/ShriMatajiKrishnaPuja.jpg'
   }
 ];

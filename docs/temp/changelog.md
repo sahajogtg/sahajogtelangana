@@ -64,7 +64,7 @@
 - Enhanced Events component to display sample events when no events are returned from API
 - Updated the Virtual Tour section with official Sahaja Yoga shrine video 
 - Updated Benefits section background to match the Hero section's red-pink-orange gradient
-- Added "SahajaYoga Odisha" styled text to the event banner section for brand identity
+- Added "SahajaYoga Telangana" styled text to the event banner section for brand identity
 - Created new Contact Us section with vibrant red-pink-orange gradient to match site theme
 - Removed duplicate contact form (GetApp component) to avoid redundancy
 - Removed top navigation bar containing phone number, email, and "Request for Stay" button
