@@ -78,7 +78,7 @@ function generatePDF(registrations: any[]) {
   doc.setTextColor(parseInt(primaryColor.substring(1, 3), 16), 
                   parseInt(primaryColor.substring(3, 5), 16), 
                   parseInt(primaryColor.substring(5, 7), 16));
-  doc.text('Sahaja Yoga Odisha', 14, 20);
+  doc.text('Sahaja Yoga Telangana', 14, 20);
   
   doc.setFontSize(12);
   doc.setTextColor(100);
@@ -243,7 +243,7 @@ function generatePDF(registrations: any[]) {
   doc.setTextColor(100);
   doc.setTextColor(100);
   doc.text('Thank you for registering for the event!', 105, currentY, { align: 'center' });
-  doc.text('For any inquiries, please contact us at info@sahajayogaodisha.org', 105, currentY + 8, { align: 'center' });
+  doc.text('For any inquiries, please contact us at info@sahajayogatelangana.org', 105, currentY + 8, { align: 'center' });
   
   // Return the PDF as buffer
   return Buffer.from(doc.output('arraybuffer'));

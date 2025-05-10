@@ -12,7 +12,7 @@ export default function ForgotPasswordEmail({
 }) {
   return (
     <Html>
-      <Heading as="h2"> Hello {params.name} </Heading>
+      <Heading as="h2"> Jai Shri Mataji {params.name} </Heading>
       <Text>
         We received the reset password request. if it's not you then please ignore it.
       </Text>

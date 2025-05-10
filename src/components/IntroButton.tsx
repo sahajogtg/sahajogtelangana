@@ -19,7 +19,7 @@ const IntroButton = () => {
         <h2 className="text-3xl md:text-4xl font-bold text-center text-[#8A1457]">
           Download Introduction Booklet
         </h2>
-            <div className="flex flex-col mt-3 w-full gap-2 sm:flex-row  items-center justify-center">
+            <div className="flex flex-col mt-3 w-full gap-2 sm:flex-row items-center justify-center">
               <button 
                 onClick={() => downloadPDF('hindi-booklet.pdf')}
                 className="flexCenter gap-3 rounded-full border btn_green"
