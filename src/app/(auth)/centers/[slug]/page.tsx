@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import SeoJsonLd from "@/components/SeoJsonLd";
+import CenterRegistrationForm from "@/components/CenterRegistrationForm";
 import { absoluteUrl, pageMetadata } from "@/lib/seo";
 import { centerIdFromSlug, centerSlug, formatCenterTime, getPublicCenters } from "@/lib/centers";
 import { getRequestLocale } from "@/lib/serverLocale";
@@ -17,6 +18,8 @@ const copyByLocale = {
     openMap: "Open in Maps",
     updates: "Center updates",
     announcements: "Announcements",
+    registerTitle: "Register to attend",
+    registerBody: "Enter your details below to register for meditation sessions at this center.",
     intro:
       "This center hosts free Sahaja Yoga meditation sessions for seekers and practitioners. Use the details below to plan your visit and connect with the local collective.",
     nextTitle: "Helpful next steps",
@@ -39,6 +42,8 @@ const copyByLocale = {
     openMap: "మ్యాప్స్‌లో తెరవండి",
     updates: "కేంద్ర అప్‌డేట్లు",
     announcements: "ప్రకటనలు",
+    registerTitle: "హాజరు కావడానికి నమోదు చేయండి",
+    registerBody: "ఈ కేంద్రంలో ధ్యాన సెషన్లకు హాజరు కావడానికి క్రింద మీ వివరాలు నమోదు చేయండి.",
     intro:
       "ఈ కేంద్రంలో ప్రారంభికులు మరియు సాధకుల కోసం ఉచిత సహజ యోగ ధ్యాన సెషన్లు జరుగుతాయి. మీ సందర్శనను సులభంగా ప్రణాళిక చేసుకోవడానికి మరియు స్థానిక సమష్టితో అనుసంధానానికి క్రింది వివరాలను ఉపయోగించండి.",
     nextTitle: "తదుపరి ఉపయోగకరమైన అడుగులు",
@@ -149,12 +154,23 @@ export default async function CenterDetailPage({ params }: Params) {
           ← {copy.back}
         </Link>
 
+        <div className="relative mt-6 h-48 overflow-hidden rounded-[32px] md:h-64">
+          <img
+            src="/images/center-hall.svg"
+            alt={`${center.zone} meditation center`}
+            className="h-full w-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+          <div className="absolute inset-0 flex flex-col justify-end p-7 md:p-10">
+            <p className="text-xs font-semibold uppercase tracking-[0.24em] text-white/70">{copy.subtitle}</p>
+            <h1 className="mt-2 text-3xl font-semibold tracking-tight text-white md:text-5xl">
+              {center.zone}
+            </h1>
+            <p className="mt-1 text-sm text-white/70 md:text-base">{center.city || "Hyderabad"}, Telangana</p>
+          </div>
+        </div>
+
         <section className="mt-6 rounded-[32px] border border-[color:var(--border)] bg-[color:var(--surface)] p-7 shadow-soft md:p-10">
-          <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[color:var(--muted)]">{copy.subtitle}</p>
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight text-[color:var(--ink)] md:text-5xl">
-            {center.zone}
-          </h1>
-          <p className="mt-3 text-lg text-[color:var(--muted)]">{center.city || "Hyderabad"}, Telangana</p>
           <p className="mt-5 max-w-3xl text-sm leading-7 text-[color:var(--muted)] md:text-base">{copy.intro}</p>
         </section>
 
@@ -193,6 +209,14 @@ export default async function CenterDetailPage({ params }: Params) {
                 <p className="mt-4 text-sm leading-7 text-[color:var(--ink)] md:text-base">{center.announcement}</p>
               </div>
             ) : null}
+
+            <div className="rounded-[28px] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-soft">
+              <h2 className="text-2xl font-semibold text-[color:var(--ink)]">{copy.registerTitle}</h2>
+              <p className="mt-2 text-sm leading-7 text-[color:var(--muted)]">{copy.registerBody}</p>
+              <div className="mt-4">
+                <CenterRegistrationForm centerName={center.zone} centerId={center._id} />
+              </div>
+            </div>
 
             <div className="rounded-[28px] border border-[color:var(--border)] bg-[color:var(--surface)] p-6 shadow-soft">
               <h2 className="text-2xl font-semibold text-[color:var(--ink)]">{copy.nextTitle}</h2>

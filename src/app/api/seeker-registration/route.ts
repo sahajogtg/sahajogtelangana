@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connect } from '@/database/mongo.config';
 import { Seeker } from '@/models/Seeker';
+import { inferGender } from '@/lib/gender-inference';
 
 export const dynamic = 'force-dynamic';
 
@@ -59,6 +60,7 @@ export async function POST(request: NextRequest) {
       preferredLanguage,
       centerInterest: '',
       eventInterest: eventName,
+      gender: inferGender(name),
       notes: '',
       source: 'QR Self Registration',
       followUpStatus: 'New',

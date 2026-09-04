@@ -13,6 +13,16 @@ const userSchema = new Schema({
     unique: true,
     trim: true,
   },
+  phone: {
+    type: Schema.Types.String,
+    unique: true,
+    sparse: true,
+    trim: true,
+  },
+  phoneVerified: {
+    type: Schema.Types.Boolean,
+    default: false,
+  },
   password: {
     type: Schema.Types.String,
   },
@@ -79,6 +89,18 @@ const existingUserModel = mongoose.models.User as any;
 
 if (existingUserModel) {
   existingUserModel.schema.add({
+    phone: {
+      type: Schema.Types.String,
+      required: false,
+      unique: true,
+      sparse: true,
+      trim: true,
+    },
+    phoneVerified: {
+      type: Schema.Types.Boolean,
+      required: false,
+      default: false,
+    },
     city: {
       type: Schema.Types.String,
       required: false,

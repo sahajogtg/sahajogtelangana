@@ -14,6 +14,21 @@ For each seeker/person found in the image, extract:
 If the image contains no names or phone numbers, return an empty array: []
 Return ONLY a valid JSON array of objects. Do NOT include markdown formatting, backticks, or explanatory text.`;
 
+const OCR_PROMPT_PDF = `You are an OCR scanner for Sahaja Yoga seeker registration sheets and handwriting sheets.
+Extract all contact/seeker records from every page of this PDF document into a JSON array of objects.
+
+For each seeker/person found in the document, extract:
+- "name": string (Full Name of seeker, e.g. "Ramesh Reddy")
+- "phone": string (10-digit Indian mobile number formatted as pure digits without spaces or country code e.g. "9876543210")
+- "city": string (City / Town / Mandal name, e.g. "Hyderabad", "Warangal", "Nizamabad", "Secunderabad")
+- "email": string (optional, empty string if not legible or not present)
+- "preferredLanguage": string (optional, e.g. "Telugu", "Hindi", "English", "Odia", "Marathi")
+- "notes": string (brief description or "OCR Scanned")
+
+This is a multi-page PDF document. Check ALL pages carefully.
+If the document contains no names or phone numbers, return an empty array: []
+Return ONLY a valid JSON array of objects. Do NOT include markdown formatting, backticks, or explanatory text.`;
+
 // Ultra-resilient parser for JSON, Markdown tables, Bullet lists, Key-Values, and raw OCR text
 function parseSeekersFromAiResponse(text: string): { seekers: any[]; success: boolean } {
   if (!text || !text.trim()) {
@@ -175,8 +190,9 @@ function parseSeekersFromAiResponse(text: string): { seekers: any[]; success: bo
 }
 
 // 1. Google Gemini API Provider
-async function tryGemini(apiKey: string, base64Data: string, mimeType: string): Promise<{ seekers: any[]; success: boolean }> {
+async function tryGemini(apiKey: string, base64Data: string, mimeType: string, isPdf: boolean = false): Promise<{ seekers: any[]; success: boolean }> {
   const models = ["gemini-2.5-flash", "gemini-2.5-flash-lite", "gemini-3.5-flash"];
+  const prompt = isPdf ? OCR_PROMPT_PDF : OCR_PROMPT;
   let lastError = "";
 
   for (const model of models) {
@@ -190,7 +206,7 @@ async function tryGemini(apiKey: string, base64Data: string, mimeType: string): 
             contents: [
               {
                 parts: [
-                  { text: OCR_PROMPT },
+                  { text: prompt },
                   {
                     inlineData: {
                       mimeType: mimeType,
@@ -216,7 +232,7 @@ async function tryGemini(apiKey: string, base64Data: string, mimeType: string): 
               contents: [
                 {
                   parts: [
-                    { text: OCR_PROMPT },
+                    { text: prompt },
                     {
                       inlineData: {
                         mimeType: mimeType,
@@ -319,7 +335,7 @@ async function tryOpenRouter(apiKey: string, dataUri: string): Promise<{ seekers
 
 export async function POST(request: NextRequest) {
   try {
-    const { image } = await request.json();
+    const { image, fileType } = await request.json();
     if (!image) {
       return NextResponse.json({ status: 400, message: "No image data provided" }, { status: 400 });
     }
@@ -328,6 +344,7 @@ export async function POST(request: NextRequest) {
     let mimeType = "image/jpeg";
     let base64Data = image;
     let dataUri = image;
+    let isPdf = fileType === "pdf";
 
     if (image.startsWith("data:")) {
       const match = image.match(/^data:([^;]+);base64,(.+)$/);
@@ -335,6 +352,7 @@ export async function POST(request: NextRequest) {
         mimeType = match[1];
         base64Data = match[2];
         dataUri = image;
+        if (mimeType === "application/pdf") isPdf = true;
       }
     } else {
       dataUri = `data:${mimeType};base64,${base64Data}`;
@@ -349,8 +367,8 @@ export async function POST(request: NextRequest) {
     let providerSucceeded = false;
     const errors: string[] = [];
 
-    // 1. Try OpenRouter (Multi-model Vision Router)
-    if (openrouterKey) {
+    // 1. Try OpenRouter (Multi-model Vision Router) — skip for PDFs (not supported)
+    if (openrouterKey && !isPdf) {
       try {
         console.log("Attempting OCR with OpenRouter Vision router...");
         const res = await tryOpenRouter(openrouterKey, dataUri);
@@ -367,8 +385,8 @@ export async function POST(request: NextRequest) {
     // 2. Try Gemini (if OpenRouter was not configured or errored)
     if (!providerSucceeded && geminiKey) {
       try {
-        console.log("Attempting OCR with Google Gemini API...");
-        const res = await tryGemini(geminiKey, base64Data, mimeType);
+        console.log(`Attempting OCR with Google Gemini API... (isPdf=${isPdf}, mimeType=${mimeType})`);
+        const res = await tryGemini(geminiKey, base64Data, mimeType, isPdf);
         if (res.success) {
           rawSeekers = res.seekers;
           providerUsed = "Google Gemini";

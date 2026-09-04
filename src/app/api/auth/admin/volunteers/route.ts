@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
     email: String(body.email || "").trim().toLowerCase(),
     phone: body.phone || "",
     city: body.city || "",
+    gender: body.gender || "Unknown",
     roles: Array.isArray(body.roles) ? body.roles : [],
     assignments: Array.isArray(body.assignments) ? body.assignments : [],
     availability: body.availability || "",

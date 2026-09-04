@@ -91,6 +91,12 @@ const seekerSchema = new Schema({
     trim: true,
     default: "",
   },
+  gender: {
+    type: String,
+    trim: true,
+    enum: ["Male", "Female", "Unknown"],
+    default: "Unknown",
+  },
   notes: {
     type: String,
     trim: true,
@@ -195,6 +201,12 @@ if (existingSeekerModel) {
       type: String,
       trim: true,
       default: "",
+    },
+    gender: {
+      type: String,
+      trim: true,
+      enum: ["Male", "Female", "Unknown"],
+      default: "Unknown",
     },
     notes: {
       type: String,

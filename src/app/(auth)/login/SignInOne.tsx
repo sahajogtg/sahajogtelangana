@@ -170,6 +170,12 @@ export default function SignInOne({ error }: { error?: string }) {
                 </Link>
               </div>
 
+              <div>
+                <Link href="/login/phone" className="btn btn-secondary w-full">
+                  Login with Phone
+                </Link>
+              </div>
+
               <div className="flex items-center gap-4">
                 <div className="h-px flex-1 bg-[color:var(--border)]" />
                 <span className="text-[13px] text-[color:var(--muted)]">or continue with</span>

@@ -3,25 +3,8 @@
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
-import { FiCamera, FiUpload, FiEdit3, FiTrash2, FiPlus, FiCheck, FiAlertCircle } from 'react-icons/fi';
+import { FiCamera, FiUpload, FiCheck, FiAlertCircle, FiFileText } from 'react-icons/fi';
 import YogiDashboardShell from '@/components/YogiDashboardShell';
-import CityPicker from '@/components/CityPicker';
-
-type SeekerRow = {
-  id: string;
-  name: string;
-  phone: string;
-  city: string;
-  email: string;
-  preferredLanguage: string;
-  notes: string;
-};
-
-const MOCK_OCR_RESULTS: SeekerRow[] = [
-  { id: 'ocr-1', name: 'Niranjan Patnaik', phone: '9437102030', city: 'Bhubaneswar', email: 'niranjan@gmail.com', preferredLanguage: 'Odia', notes: 'OCR extracted from image' },
-  { id: 'ocr-2', name: 'Ramesh Reddy', phone: '9908123456', city: 'Hyderabad', email: '', preferredLanguage: 'Telugu', notes: 'OCR extracted from image' },
-  { id: 'ocr-3', name: 'Srinivas Murthy', phone: '9845011223', city: 'Secunderabad', email: 'srinivas.m@gmail.com', preferredLanguage: 'English', notes: 'OCR extracted from image' },
-];
 
 export default function ScanPage() {
   const { data: session, status } = useSession();
@@ -30,15 +13,12 @@ export default function ScanPage() {
   const cameraInputRef = useRef<HTMLInputElement>(null);
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [isScanning, setIsScanning] = useState(false);
-  const [seekers, setSeekers] = useState<SeekerRow[]>([]);
+  const [fileData, setFileData] = useState<string | null>(null);
+  const [fileName, setFileName] = useState('');
+  const [fileType, setFileType] = useState<'image' | 'pdf' | 'csv'>('image');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
   const [messageType, setMessageType] = useState<'success' | 'error'>('success');
-  const [editId, setEditId] = useState<string | null>(null);
-  const [editForm, setEditForm] = useState<SeekerRow>({
-    id: '', name: '', phone: '', city: '', email: '', preferredLanguage: 'English', notes: '',
-  });
 
   if (status === 'loading') {
     return (
@@ -46,137 +26,59 @@ export default function ScanPage() {
     );
   }
 
-  const runRealOcr = async (imageUri: string) => {
-    setImagePreview(imageUri);
-    setIsScanning(true);
-    setMessage('');
-
-    try {
-      const response = await fetch('/api/ocr', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ image: imageUri }),
-      });
-      const resData = await response.json();
-      if (response.ok && resData.status === 200) {
-        setSeekers(resData.data);
-        setMessageType('success');
-        setMessage(`OCR completed. Extracted ${resData.data.length} seekers. Please review.`);
-      } else {
-        setMessageType('error');
-        setMessage(resData.message || 'Failed to scan image.');
-      }
-    } catch (err: any) {
-      setMessageType('error');
-      setMessage(err.message || 'Error occurred while contacting OCR API.');
-    } finally {
-      setIsScanning(false);
-    }
-  };
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFile = (e: React.ChangeEvent<HTMLInputElement>, captureMode?: boolean) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     const reader = new FileReader();
     reader.onload = (ev) => {
       const uri = ev.target?.result as string;
-      runRealOcr(uri);
+      setImagePreview(captureMode ? uri : null);
+      setFileData(uri);
+      setFileName(file.name);
+
+      if (file.name.toLowerCase().endsWith('.csv')) {
+        setFileType('csv');
+      } else if (file.name.toLowerCase().endsWith('.pdf')) {
+        setFileType('pdf');
+      } else {
+        setFileType('image');
+      }
     };
     reader.readAsDataURL(file);
 
     if (fileInputRef.current) fileInputRef.current.value = '';
-  };
-
-  const handleCameraCapture = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      const uri = ev.target?.result as string;
-      runRealOcr(uri);
-    };
-    reader.readAsDataURL(file);
-
     if (cameraInputRef.current) cameraInputRef.current.value = '';
   };
 
-  const handleDelete = (id: string) => {
-    setSeekers((prev) => prev.filter((s) => s.id !== id));
-  };
-
-  const handleStartEdit = (s: SeekerRow) => {
-    setEditId(s.id);
-    setEditForm({ ...s });
-  };
-
-  const handleSaveEdit = () => {
-    setSeekers((prev) => prev.map((s) => (s.id === editId ? { ...editForm } : s)));
-    setEditId(null);
-  };
-
-  const handleAddRow = () => {
-    const newEntry: SeekerRow = {
-      id: `manual-${Date.now()}`,
-      name: '',
-      phone: '',
-      city: 'Hyderabad',
-      email: '',
-      preferredLanguage: 'English',
-      notes: 'Manually added',
-    };
-    setSeekers((prev) => [newEntry, ...prev]);
-    handleStartEdit(newEntry);
-  };
-
-  const validate = () => {
-    for (let i = 0; i < seekers.length; i++) {
-      const s = seekers[i];
-      if (!s.name.trim() || !s.phone.trim() || !s.city.trim()) {
-        setMessageType('error');
-        setMessage(`Row ${i + 1} (${s.name || 'unnamed'}) is missing name, phone, or city.`);
-        return false;
-      }
-    }
-    return true;
-  };
-
-  const handleSubmit = async () => {
-    if (!validate()) return;
+  const handleSubmitUpload = async () => {
+    if (!fileData) return;
 
     setIsSubmitting(true);
     setMessage('');
 
     try {
-      const res = await fetch('/api/auth/add-seeker', {
+      const res = await fetch('/api/document-uploads', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(
-          seekers.map((s) => ({
-            name: s.name.trim(),
-            phone: s.phone.trim(),
-            city: s.city.trim(),
-            email: s.email.trim(),
-            preferredLanguage: s.preferredLanguage,
-            notes: s.notes,
-            source: 'Website Camera Scan',
-          }))
-        ),
+        body: JSON.stringify({
+          fileName,
+          fileData,
+          fileType,
+        }),
       });
 
       const data = await res.json();
 
       if (res.status === 201) {
         setMessageType('success');
-        setMessage(`${seekers.length} seeker(s) registered successfully!`);
-        setSeekers([]);
+        setMessage(data.message || 'Document uploaded successfully. Seekers will be added within 24 hours.');
         setImagePreview(null);
+        setFileData(null);
+        setFileName('');
       } else {
         setMessageType('error');
-        setMessage(data?.error || data?.message || 'Failed to submit.');
+        setMessage(data?.error || 'Failed to upload document.');
       }
     } catch {
       setMessageType('error');
@@ -184,6 +86,13 @@ export default function ScanPage() {
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleReset = () => {
+    setImagePreview(null);
+    setFileData(null);
+    setFileName('');
+    setMessage('');
   };
 
   const userRole = session?.user?.role as string | undefined;
@@ -199,9 +108,9 @@ export default function ScanPage() {
                   <FiCamera className="text-[color:var(--primary)]" size={24} />
                 </div>
                 <div>
-                  <h1 className="text-2xl font-semibold text-[color:var(--ink)]">Scan Using Camera</h1>
+                  <h1 className="text-2xl font-semibold text-[color:var(--ink)]">Upload Registration Document</h1>
                   <p className="text-sm text-[color:var(--muted)] mt-1">
-                    Take a photo of a physical registration list to auto-extract seeker details.
+                    Upload a photo or document of a physical registration list. Our team will process it and add the seekers within 24 hours.
                   </p>
                 </div>
               </div>
@@ -223,8 +132,8 @@ export default function ScanPage() {
                 </div>
               )}
 
-              {/* Capture Options */}
-              {!imagePreview && !isScanning && seekers.length === 0 && (
+              {/* Upload Options */}
+              {!fileData && !isSubmitting && (
                 <div className="grid gap-4 md:grid-cols-2">
                   <button
                     onClick={() => cameraInputRef.current?.click()}
@@ -235,7 +144,7 @@ export default function ScanPage() {
                       type="file"
                       accept="image/*"
                       capture="environment"
-                      onChange={handleCameraCapture}
+                      onChange={(e) => handleFile(e, true)}
                       className="hidden"
                     />
                     <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[color:color-mix(in_srgb,var(--primary)_10%,transparent)]">
@@ -254,16 +163,16 @@ export default function ScanPage() {
                     <input
                       ref={fileInputRef}
                       type="file"
-                      accept="image/*"
-                      onChange={handleImageUpload}
+                      accept="image/*,.csv,.pdf"
+                      onChange={(e) => handleFile(e, false)}
                       className="hidden"
                     />
                     <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[color:color-mix(in_srgb,var(--primary)_10%,transparent)]">
                       <FiUpload className="text-[color:var(--primary)]" size={28} />
                     </div>
                     <div className="text-center">
-                      <p className="font-semibold text-[color:var(--ink)]">Upload Image</p>
-                      <p className="mt-1 text-sm text-[color:var(--muted)]">Choose a photo from your device</p>
+                      <p className="font-semibold text-[color:var(--ink)]">Upload File</p>
+                      <p className="mt-1 text-sm text-[color:var(--muted)]">Image, PDF, or CSV from your device</p>
                     </div>
                   </button>
                 </div>
@@ -273,138 +182,55 @@ export default function ScanPage() {
               {imagePreview && (
                 <div className="mb-6 overflow-hidden rounded-2xl border border-[color:var(--border)]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={imagePreview} alt="Captured page" className="w-full max-h-80 object-contain bg-black/5" />
+                  <img src={imagePreview} alt="Uploaded document" className="w-full max-h-80 object-contain bg-black/5" />
                 </div>
               )}
 
-              {/* Scanning Indicator */}
-              {isScanning && (
-                <div className="flex items-center justify-center gap-3 rounded-2xl border border-[color:var(--border)] bg-[color:color-mix(in_srgb,var(--surface-2)_50%,transparent)] p-10">
-                  <div className="h-8 w-8 animate-spin rounded-full border-2 border-[color:var(--primary)] border-t-transparent" />
+              {/* File Info (non-image) */}
+              {!imagePreview && fileData && (
+                <div className="mb-6 flex items-center gap-3 rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-2)] p-4">
+                  <FiFileText className="h-8 w-8 text-[color:var(--primary)]" />
                   <div>
-                    <p className="font-medium text-[color:var(--ink)]">Running AI OCR page scanner...</p>
-                    <p className="mt-1 text-sm text-[color:var(--muted)]">Extracting names and phone numbers</p>
+                    <p className="font-medium text-[color:var(--ink)]">{fileName}</p>
+                    <p className="text-sm text-[color:var(--muted)]">Ready to upload</p>
                   </div>
                 </div>
               )}
 
-              {/* Retake Button */}
-              {imagePreview && !isScanning && seekers.length === 0 && (
-                <div className="mt-4 flex justify-center">
+              {/* Submit / Reset Buttons */}
+              {fileData && (
+                <div className="flex items-center gap-3">
                   <button
-                    onClick={() => { setImagePreview(null); setMessage(''); }}
-                    className="rounded-full border border-[color:var(--border)] px-6 py-2.5 text-sm text-[color:var(--muted)] transition-colors hover:bg-[color:var(--surface-2)]"
+                    onClick={handleSubmitUpload}
+                    disabled={isSubmitting}
+                    className="admin-btn-primary inline-flex items-center gap-2 px-8 py-3 disabled:opacity-60"
                   >
-                    Retake Photo
+                    {isSubmitting ? 'Uploading...' : 'Submit for Processing'}
+                  </button>
+                  <button
+                    onClick={handleReset}
+                    disabled={isSubmitting}
+                    className="rounded-full border border-[color:var(--border)] px-6 py-3 text-sm font-semibold text-[color:var(--muted)] transition-colors hover:bg-[color:var(--surface-2)] disabled:opacity-60"
+                  >
+                    Choose Different File
                   </button>
                 </div>
               )}
 
-              {/* Seeker Preview */}
-              {!isScanning && seekers.length > 0 && (
-                <div className="mt-6">
-                  <div className="mb-4 flex items-center justify-between">
-                    <p className="text-sm font-semibold text-[color:var(--ink)]">
-                      Extracted Seekers ({seekers.length})
-                    </p>
-                    <button
-                      onClick={handleAddRow}
-                      className="inline-flex items-center gap-2 rounded-full border border-[color:var(--border)] bg-[color:var(--surface)] px-4 py-2 text-sm font-semibold text-[color:var(--ink)] transition-colors hover:bg-[color:var(--surface-2)]"
-                    >
-                      <FiPlus size={14} />
-                      Add Row
-                    </button>
-                  </div>
-
-                  <div className="space-y-3">
-                    {seekers.map((seeker) => (
-                      <div
-                        key={seeker.id}
-                        className="rounded-[24px] border border-[color:var(--border)] bg-[color:var(--surface)] p-5"
-                      >
-                        {editId === seeker.id ? (
-                          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                            <EditField label="Name" value={editForm.name} onChange={(v) => setEditForm((p) => ({ ...p, name: v }))} />
-                            <EditField label="Phone" value={editForm.phone} onChange={(v) => setEditForm((p) => ({ ...p, phone: v }))} />
-                            <div>
-                              <label className="mb-1.5 block text-xs font-medium text-[color:var(--muted)]">City</label>
-                              <CityPicker value={editForm.city} onChange={(v) => setEditForm((p) => ({ ...p, city: v }))} className="admin-input text-sm" />
-                            </div>
-                            <EditField label="Email" value={editForm.email} onChange={(v) => setEditForm((p) => ({ ...p, email: v }))} />
-                            <EditField label="Language" value={editForm.preferredLanguage} onChange={(v) => setEditForm((p) => ({ ...p, preferredLanguage: v }))} />
-                            <EditField label="Notes" value={editForm.notes} onChange={(v) => setEditForm((p) => ({ ...p, notes: v }))} />
-                            <div className="flex items-end gap-2 md:col-span-2 lg:col-span-3">
-                              <button onClick={handleSaveEdit} className="admin-btn-primary text-sm px-5 py-2.5 rounded-full">
-                                Save
-                              </button>
-                              <button onClick={() => setEditId(null)} className="rounded-full border border-[color:var(--border)] px-5 py-2.5 text-sm text-[color:var(--muted)]">
-                                Cancel
-                              </button>
-                            </div>
-                          </div>
-                        ) : (
-                          <div className="flex items-start justify-between gap-4">
-                            <div className="flex-1">
-                              <p className="font-semibold text-[color:var(--ink)]">{seeker.name}</p>
-                              <p className="mt-0.5 text-sm text-[color:var(--primary)]">{seeker.phone}</p>
-                              <div className="mt-2 flex flex-wrap gap-3 text-xs text-[color:var(--muted)]">
-                                <span>{seeker.city}</span>
-                                {seeker.email && <span>{seeker.email}</span>}
-                                <span>{seeker.preferredLanguage}</span>
-                              </div>
-                              {seeker.notes && (
-                                <p className="mt-1.5 text-xs italic text-[color:var(--muted)]">{seeker.notes}</p>
-                              )}
-                            </div>
-                            <div className="flex gap-2">
-                              <button
-                                onClick={() => handleStartEdit(seeker)}
-                                className="flex h-8 w-8 items-center justify-center rounded-lg border border-[color:var(--border)] text-[color:var(--muted)] hover:text-[color:var(--ink)]"
-                              >
-                                <FiEdit3 size={14} />
-                              </button>
-                              <button
-                                onClick={() => handleDelete(seeker.id)}
-                                className="flex h-8 w-8 items-center justify-center rounded-lg border border-[color:color-mix(in_srgb,var(--danger)_30%,transparent)] text-[color:var(--danger)] hover:bg-[color:color-mix(in_srgb,var(--danger)_10%,transparent)]"
-                              >
-                                <FiTrash2 size={14} />
-                              </button>
-                            </div>
-                          </div>
-                        )}
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="mt-6 flex justify-end">
-                    <button
-                      onClick={handleSubmit}
-                      disabled={isSubmitting}
-                      className="admin-btn-primary inline-flex items-center gap-2 px-8 py-3 disabled:opacity-60"
-                    >
-                      {isSubmitting ? 'Registering...' : `Register ${seekers.length} Seeker${seekers.length !== 1 ? 's' : ''}`}
-                    </button>
-                  </div>
-                </div>
-              )}
+              {/* Info Note */}
+              <div className="mt-8 rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface-2)] p-5">
+                <p className="text-sm font-semibold text-[color:var(--ink)]">How it works</p>
+                <ol className="mt-2 space-y-1 text-sm text-[color:var(--muted)] list-decimal list-inside">
+                  <li>Take a photo or upload a document containing seeker details</li>
+                  <li>Our team will review and extract the information</li>
+                  <li>Seekers will be added to the system within 24 hours</li>
+                  <li>You will be notified once the seekers are added</li>
+                </ol>
+              </div>
             </div>
           </div>
         </section>
       </main>
     </YogiDashboardShell>
-  );
-}
-
-function EditField({ label, value, onChange }: { label: string; value: string; onChange: (v: string) => void }) {
-  return (
-    <div>
-      <label className="mb-1.5 block text-xs font-medium text-[color:var(--muted)]">{label}</label>
-      <input
-        type="text"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        className="admin-input text-sm"
-      />
-    </div>
   );
 }

@@ -5,12 +5,14 @@ import { Seeker } from '@/models/Seeker';
 import { VolunteerProfile } from '@/models/VolunteerProfile';
 import { INDIAN_CITIES, NEIGHBORING_STATES, CityEntry } from '@/data/indian-districts';
 import { isTerminalStatus, computeSnoozedUntil } from '@/lib/seeker-snooze';
+import { Gender } from '@/lib/gender-inference';
 
 export const dynamic = 'force-dynamic';
 
 type FollowUpVolunteer = {
   _id?: string;
   name: string;
+  gender?: Gender;
   language?: string;
   city?: string;
   roles?: string[];
@@ -66,6 +68,7 @@ function seekerProjection() {
     eventInterest: 1,
     centerInterest: 1,
     preferredLanguage: 1,
+    gender: 1,
     notes: 1,
   };
 }
@@ -141,6 +144,11 @@ export async function POST() {
 
     if (volLang) {
       unassignedFilter.preferredLanguage = { $regex: new RegExp(`^${volLang.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') };
+    }
+
+    const volGender = (volunteer.gender || '').trim();
+    if (volGender !== 'Female') {
+      unassignedFilter.gender = { $in: ['Male', 'Unknown'] };
     }
 
     const candidates = await Seeker.find(unassignedFilter, { _id: 1, city: 1 })

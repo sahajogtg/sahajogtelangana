@@ -267,6 +267,12 @@ export default function SignUp() {
                   </button>
                 </div>
               </form>
+
+              <div className="mt-6">
+                <Link href="/login/phone" className="btn btn-secondary w-full">
+                  Register with Phone
+                </Link>
+              </div>
             </div>
           </div>
         </div>

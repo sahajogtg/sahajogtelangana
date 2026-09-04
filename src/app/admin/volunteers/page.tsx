@@ -11,6 +11,7 @@ type Volunteer = {
   email: string;
   phone?: string;
   city?: string;
+  gender?: string;
   roles?: string[];
   assignments?: string[];
   availability?: string;
@@ -36,6 +37,7 @@ const emptyVolunteer = {
   email: '',
   phone: '',
   city: '',
+  gender: 'Unknown',
   roles: '',
   assignments: '',
   availability: '',
@@ -96,6 +98,7 @@ export default function VolunteersPage() {
       email: volunteer.email,
       phone: volunteer.phone || '',
       city: volunteer.city || '',
+      gender: volunteer.gender || 'Unknown',
       roles: (volunteer.roles || []).join(', '),
       assignments: (volunteer.assignments || []).join(', '),
       availability: volunteer.availability || '',
@@ -179,6 +182,18 @@ export default function VolunteersPage() {
             <span className="mb-2 block text-sm font-medium text-[color:var(--ink)]">City</span>
             <CityPicker value={form.city} onChange={(value) => setForm((prev) => ({ ...prev, city: value }))} className="admin-input" />
           </label>
+          <label>
+            <span className="mb-2 block text-sm font-medium text-[color:var(--ink)]">Gender</span>
+            <select
+              className="admin-input"
+              value={form.gender}
+              onChange={(e) => setForm((prev) => ({ ...prev, gender: e.target.value }))}
+            >
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Unknown">Unknown</option>
+            </select>
+          </label>
           <Input label="Roles" value={form.roles} onChange={(value) => setForm((prev) => ({ ...prev, roles: value }))} placeholder="Follow-up, Events, Music" />
           <Input label="Assignments" value={form.assignments} onChange={(value) => setForm((prev) => ({ ...prev, assignments: value }))} placeholder="Beginners, Center north, Event desk" />
           <Input label="Availability" value={form.availability} onChange={(value) => setForm((prev) => ({ ...prev, availability: value }))} />
@@ -234,6 +249,7 @@ export default function VolunteersPage() {
               </span>
             </div>
             <div className="mt-4 space-y-2 text-sm text-[color:var(--muted)]">
+              <p><span className="font-semibold text-[color:var(--ink)]">Gender:</span> {volunteer.gender || 'Not set'}</p>
               <p><span className="font-semibold text-[color:var(--ink)]">Roles:</span> {(volunteer.roles || []).join(', ') || 'Not set'}</p>
               <p><span className="font-semibold text-[color:var(--ink)]">Assignments:</span> {(volunteer.assignments || []).join(', ') || 'Not set'}</p>
               <p><span className="font-semibold text-[color:var(--ink)]">Availability:</span> {volunteer.availability || 'Not set'}</p>

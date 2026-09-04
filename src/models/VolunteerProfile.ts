@@ -37,6 +37,12 @@ const volunteerProfileSchema = new Schema({
     trim: true,
     default: "",
   },
+  gender: {
+    type: Schema.Types.String,
+    trim: true,
+    enum: ["Male", "Female", "Unknown"],
+    default: "Unknown",
+  },
   interests: {
     type: [Schema.Types.String],
     default: [],

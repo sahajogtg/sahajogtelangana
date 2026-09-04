@@ -28,7 +28,7 @@ const statusOptions = ['New', 'Contacted', 'Follow-up scheduled', 'Converted', '
 const languageOptions = ['English', 'Odia', 'Hindi', 'Telugu'];
 
 export default function SeekerFollowupsPage() {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [seekers, setSeekers] = useState<Seeker[]>([]);
   const [loading, setLoading] = useState(true);
@@ -36,6 +36,7 @@ export default function SeekerFollowupsPage() {
   const [savingId, setSavingId] = useState<string | null>(null);
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
+  const [isVolunteer, setIsVolunteer] = useState(false);
 
   useEffect(() => {
     if (status === 'unauthenticated') {
@@ -46,7 +47,10 @@ export default function SeekerFollowupsPage() {
   useEffect(() => {
     if (status !== 'authenticated') return;
     loadSeekers();
-  }, [status]);
+
+    const userRole = ((session?.user as any)?.role || '').toLowerCase();
+    setIsVolunteer(userRole === 'volunteer' || userRole === 'admin');
+  }, [status, session]);
 
   const loadSeekers = async () => {
     try {
@@ -165,23 +169,35 @@ export default function SeekerFollowupsPage() {
                   <div>
                     <h2 className="text-xl font-semibold text-[color:var(--ink)]">{seeker.name}</h2>
                     <p className="mt-1 text-sm leading-6 text-[color:var(--muted)]">{seeker.city}</p>
-                    <p className="mt-2 text-sm font-semibold text-[color:var(--ink)]">{seeker.phone}</p>
+                    {isVolunteer ? (
+                      <p className="mt-2 text-sm font-semibold text-[color:var(--ink)]">{seeker.phone}</p>
+                    ) : (
+                      <p className="mt-2 text-sm font-semibold text-[color:var(--ink)]">
+                        {seeker.phone.slice(0, 2)}XXXXXX{seeker.phone.slice(-2)}
+                      </p>
+                    )}
                     {seeker.email ? <p className="mt-1 text-sm text-[color:var(--muted)]">{seeker.email}</p> : null}
                   </div>
-                  <div className="grid grid-cols-2 gap-2">
-                    <a href={`tel:${telValue}`} className="admin-btn-secondary inline-flex items-center justify-center gap-2">
-                      <FiPhone className="h-4 w-4" aria-hidden="true" />
-                      Call
-                    </a>
-                    <a
-                      href={`https://wa.me/91${telValue.replace(/^\+?91/, '')}?text=${whatsappText}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="admin-btn-primary"
-                    >
-                      WhatsApp
-                    </a>
-                  </div>
+                  {isVolunteer ? (
+                    <div className="grid grid-cols-2 gap-2">
+                      <a href={`tel:${telValue}`} className="admin-btn-secondary inline-flex items-center justify-center gap-2">
+                        <FiPhone className="h-4 w-4" aria-hidden="true" />
+                        Call
+                      </a>
+                      <a
+                        href={`https://wa.me/91${telValue.replace(/^\+?91/, '')}?text=${whatsappText}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="admin-btn-primary"
+                      >
+                        WhatsApp
+                      </a>
+                    </div>
+                  ) : (
+                    <div className="rounded-lg border border-[color:var(--border)] bg-[color:var(--surface-2)] px-3 py-2 text-xs text-[color:var(--muted)]">
+                      Contact your volunteer coordinator to reach this seeker
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-4 rounded-[18px] border border-[color:var(--border)] bg-[color:color-mix(in_srgb,var(--surface-2)_70%,transparent)] p-4">

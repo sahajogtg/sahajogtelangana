@@ -5,6 +5,7 @@ import { Seeker } from "@/models/Seeker";
 import { exactEmailMatch, getSessionFromRequest, normalizeEmail } from "@/lib/auth";
 import { User } from "@/models/User";
 import { hasFeatureAccess } from "@/lib/roles";
+import { inferGender } from "@/lib/gender-inference";
 
 connect();
 
@@ -42,6 +43,7 @@ export async function POST(req: NextRequest) {
       eventInterest: seeker.eventInterest || "",
       centerInterest: seeker.centerInterest || "",
       preferredLanguage: seeker.preferredLanguage || "English",
+      gender: seeker.gender || inferGender(String(seeker.name || "")),
       followUpStatus: seeker.followUpStatus || "New",
       assignedVolunteer: seeker.assignedVolunteer || "",
       notes: seeker.notes || "",

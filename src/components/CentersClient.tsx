@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useLocale } from "@/app/provider/localeProvider";
 import type { PublicCenter } from "@/lib/centers";
 import { centerSlug, formatCenterTime } from "@/lib/centers";
+import Reveal from "@/components/motion/Reveal";
 
 type Connection = {
   centerId: string;
@@ -239,11 +240,12 @@ export default function CentersClient({ initialCenters }: { initialCenters: Publ
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {filteredCenters.map((center) => {
+          {filteredCenters.map((center, idx) => {
             const joined = isFollowing(center._id);
 
             return (
-              <article key={center._id} className="flex h-full flex-col rounded-[var(--radius-lg)] border border-[color:var(--border)] bg-[color:var(--surface)] p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-panel">
+              <Reveal key={center._id} delay={Math.min(idx * 80, 400)}>
+              <article className="flex h-full flex-col rounded-[var(--radius-lg)] border border-[color:var(--border)] bg-[color:var(--surface)] p-5 shadow-card transition-all duration-300 hover:-translate-y-1 hover:shadow-panel">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
                     <Link
@@ -340,6 +342,7 @@ export default function CentersClient({ initialCenters }: { initialCenters: Publ
                   ) : null}
                 </div>
               </article>
+              </Reveal>
             );
           })}
         </div>
