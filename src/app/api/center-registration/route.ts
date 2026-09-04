@@ -34,11 +34,16 @@ export async function POST(request: NextRequest) {
 
     let coordinatorPhone = "";
     if (centerId) {
-      const center = await Center.findById(centerId).lean().catch(() => null);
-      if (center?.contactNumbers) {
-        coordinatorPhone = center.contactNumbers.replace(/[^0-9+]/g, "");
+      try {
+        const center = await Center.findById(centerId).lean();
+        if (center?.contactNumbers) {
+          coordinatorPhone = center.contactNumbers.replace(/[^0-9+]/g, "");
+        }
+      } catch (err) {
+        console.error("Failed to fetch center for WhatsApp button:", err);
       }
     }
+    console.log("Center registration - coordinatorPhone:", coordinatorPhone, "centerId:", centerId);
 
     const seeker = await Seeker.create({
       name,
@@ -83,11 +88,15 @@ export async function POST(request: NextRequest) {
           </tr>
         </table>
         ${coordinatorPhone ? `
-        <div style="margin-top: 24px; text-align: center;">
-          <a href="https://wa.me/${coordinatorPhone.replace(/^\+/, "")}?text=${encodeURIComponent(`Hi, I just registered for the ${centerName} meditation center.\n\nName: ${name}\nPhone: ${phone}`)}" style="display: inline-block; background-color: #25D366; color: #ffffff; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14px;">
-            Contact Coordinator on WhatsApp
-          </a>
-        </div>
+        <table role="presentation" cellpadding="0" cellspacing="0" style="margin-top: 24px; margin-left: auto; margin-right: auto;">
+          <tr>
+            <td style="background-color: #25D366; border-radius: 8px; padding: 12px 24px;">
+              <a href="https://wa.me/${coordinatorPhone.replace(/^\+/, "")}?text=${encodeURIComponent(`Hi, I just registered for the ${centerName} meditation center.\n\nName: ${name}\nPhone: ${phone}`)}" style="color: #ffffff; text-decoration: none; font-weight: 600; font-size: 14px; display: inline-block;">
+                Contact Coordinator on WhatsApp
+              </a>
+            </td>
+          </tr>
+        </table>
         ` : ""}
         <p style="color: #999; font-size: 12px; margin-top: 24px;">This registration was submitted from the Sahaja Yoga Telangana website.</p>
       </div>
