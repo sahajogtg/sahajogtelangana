@@ -6,6 +6,8 @@ import { absoluteUrl, pageMetadata } from "@/lib/seo";
 import { centerIdFromSlug, centerSlug, formatCenterTime, getPublicCenters } from "@/lib/centers";
 import { getRequestLocale } from "@/lib/serverLocale";
 
+export const dynamic = "force-dynamic";
+
 const copyByLocale = {
   en: {
     back: "All centers",
@@ -63,13 +65,6 @@ async function getCenterFromParams(slug: string) {
   const centers = await getPublicCenters();
   const center = centers.find((item) => item._id === centerIdFromSlug(slug));
   return { center, centers };
-}
-
-export async function generateStaticParams() {
-  const centers = await getPublicCenters();
-  return centers.map((center) => ({
-    slug: centerSlug(center),
-  }));
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
