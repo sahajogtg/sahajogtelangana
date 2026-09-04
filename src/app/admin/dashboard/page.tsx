@@ -13,6 +13,7 @@ import {
   MdPeople,
   MdSupervisorAccount,
   MdVolunteerActivism,
+  MdUpload,
 } from 'react-icons/md';
 import { getServerSession } from 'next-auth';
 import { CustomSession, authOptions } from '@/app/api/auth/[...nextauth]/options';
@@ -83,6 +84,12 @@ const menuItems = [
     description: 'Monitor registrations, seekers, conversions, and center engagement.',
     icon: <MdInsights size={24} />,
     href: '/admin/analytics',
+  },
+  {
+    name: 'Document Uploads',
+    description: 'Review seeker registration documents uploaded by volunteers.',
+    icon: <MdUpload size={24} />,
+    href: '/admin/document-uploads',
   },
   {
     name: 'Manage Centers',
