@@ -6,6 +6,7 @@ import { exactEmailMatch, getSessionFromRequest, normalizeEmail } from "@/lib/au
 import { User } from "@/models/User";
 import { hasFeatureAccess } from "@/lib/roles";
 import { inferGender } from "@/lib/gender-inference";
+export const dynamic = "force-dynamic";
 
 connect();
 

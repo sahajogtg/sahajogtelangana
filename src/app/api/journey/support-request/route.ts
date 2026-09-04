@@ -7,6 +7,7 @@ import { Seeker } from "@/models/Seeker";
 import ErrorReporter from "@/validator/ErrorReporter";
 import { journeySupportSchema } from "@/validator/authValidationSchema";
 import { enforceJourneyRateLimit } from "@/lib/journeySecurity";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   await connect();

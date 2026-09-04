@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connect } from "@/database/mongo.config";
 import { VolunteerProfile } from "@/models/VolunteerProfile";
 import { requireAdminSession } from "@/lib/auth";
+export const dynamic = "force-dynamic";
 
 type RouteContext = { params: { id: string } };
 

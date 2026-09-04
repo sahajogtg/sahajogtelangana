@@ -7,6 +7,7 @@ import { render } from "@react-email/render";
 import MagicLinkEmail from "@/emails/MagicLinkEmail";
 import { sendEmail } from "@/config/mail";
 import { connect } from "@/database/mongo.config";
+export const dynamic = "force-dynamic";
 
 connect();
 

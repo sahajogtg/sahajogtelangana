@@ -5,7 +5,8 @@ import { format } from 'date-fns';
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
+
 export const revalidate = 60;
 
 connect();

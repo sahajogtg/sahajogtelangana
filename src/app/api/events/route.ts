@@ -4,7 +4,8 @@ import { Event } from "@/models/Event";
 import { getServerSession } from "next-auth";
 import { authOptions, CustomSession } from "@/app/api/auth/[...nextauth]/options";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
+
 export const revalidate = 60;
 
 connect();

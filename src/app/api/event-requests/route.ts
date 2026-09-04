@@ -4,6 +4,7 @@ import { getSessionFromRequest } from "@/lib/auth";
 import { User } from "@/models/User";
 import { EventRequest } from "@/models/EventRequest";
 import { sendEmail } from "@/config/mail";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   await connect();

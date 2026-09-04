@@ -3,6 +3,7 @@ import { connect } from "@/database/mongo.config";
 import { VolunteerAssessment } from "@/models/VolunteerAssessment";
 import { SCREENING_QUESTIONS, MIN_WHY_WORDS } from "@/data/volunteer-screening";
 import { scoreAssessment } from "@/lib/volunteer-screening-score";
+export const dynamic = "force-dynamic";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const PHONE_PATTERN = /^[0-9+\-\s]{10,15}$/;

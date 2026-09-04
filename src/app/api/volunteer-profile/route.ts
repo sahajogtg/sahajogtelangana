@@ -7,6 +7,7 @@ import { User } from "@/models/User";
 import { VolunteerProfile } from "@/models/VolunteerProfile";
 import { volunteerInviteAcceptSchema } from "@/validator/volunteerInviteSchema";
 import { normalizeRole } from "@/lib/roles";
+export const dynamic = "force-dynamic";
 
 function corsHeaders() {
   return {

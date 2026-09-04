@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { authOptions, CustomSession } from "@/app/api/auth/[...nextauth]/options";
 import { connect } from "@/database/mongo.config";
 import { SchoolRegister } from "@/models/SchoolRegister";
+export const dynamic = "force-dynamic";
 
 type RouteContext = { params: { id: string } };
 

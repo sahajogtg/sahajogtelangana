@@ -5,6 +5,7 @@ import { registerSchema } from "@/validator/authValidationSchema";
 import vine, { errors } from "@vinejs/vine";
 import ErrorReporter from "@/validator/ErrorReporter";
 import bcrypt from "bcryptjs";
+export const dynamic = "force-dynamic";
 
 interface UserPayload {
   name: string;

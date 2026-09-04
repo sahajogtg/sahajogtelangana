@@ -3,7 +3,8 @@ import { Seeker } from '@/models/Seeker';
 import { connect } from "@/database/mongo.config";
 import { requireAdminSession } from '@/lib/auth';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
+
 export const fetchCache = 'force-no-store';
 export const revalidate = 60;
 

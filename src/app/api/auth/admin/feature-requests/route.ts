@@ -3,6 +3,8 @@ import { connect } from "@/database/mongo.config";
 import { requireAdminSession } from "@/lib/auth";
 import { FeatureRequest } from "@/models/FeatureRequest";
 
+export const dynamic = "force-dynamic";
+
 export async function GET() {
   await connect();
 

@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { connect } from "@/database/mongo.config";
 import { EventRegistration } from "@/models/EventRegistration";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
+
 export const revalidate = 60;
 
 // Connect to MongoDB

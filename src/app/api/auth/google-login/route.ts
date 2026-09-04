@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connect } from "@/database/mongo.config";
 import { User as UserModel } from "@/models/User";
 import { encode } from "next-auth/jwt";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
 	await connect();

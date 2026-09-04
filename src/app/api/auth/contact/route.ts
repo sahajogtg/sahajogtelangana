@@ -5,6 +5,7 @@ import { contactSchema } from "@/validator/authValidationSchema";
 import vine, { errors } from "@vinejs/vine";
 import ErrorReporter from "@/validator/ErrorReporter";
 import { sendEmail } from "@/config/mail";
+export const dynamic = "force-dynamic";
 
 interface ContactFormPayload {
   name: string;

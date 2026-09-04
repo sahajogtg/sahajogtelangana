@@ -8,6 +8,7 @@ import { VolunteerInvite } from "@/models/VolunteerInvite";
 import { VolunteerProfile } from "@/models/VolunteerProfile";
 import { volunteerInviteAcceptSchema } from "@/validator/volunteerInviteSchema";
 import { hashInviteToken, isInviteExpired } from "@/lib/invites";
+export const dynamic = "force-dynamic";
 
 type RouteContext = { params: { token: string } };
 

@@ -6,7 +6,8 @@ import * as XLSX from 'xlsx';
 import { requireAdminSession } from "@/lib/auth";
 import { groupRegistrationsByReceipt } from "@/lib/eventRegistrationGroups";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
+
 export const revalidate = 60;
 
 // Connect to MongoDB

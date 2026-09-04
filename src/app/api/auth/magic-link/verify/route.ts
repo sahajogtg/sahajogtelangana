@@ -3,6 +3,7 @@ import Cryptr from "cryptr";
 import Env from "@/config/env";
 import { connect } from "@/database/mongo.config";
 import { User } from "@/models/User";
+export const dynamic = "force-dynamic";
 
 connect();
 

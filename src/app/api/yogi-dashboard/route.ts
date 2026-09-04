@@ -3,6 +3,8 @@ import { connect } from "@/database/mongo.config";
 import { exactEmailMatch, getSessionFromRequest, normalizeEmail } from "@/lib/auth";
 import { User } from "@/models/User";
 import { Event } from "@/models/Event";
+
+export const dynamic = "force-dynamic";
 import { EventRegistration } from "@/models/EventRegistration";
 import { EventSubscription } from "@/models/EventSubscription";
 import { CenterConnection } from "@/models/CenterConnection";

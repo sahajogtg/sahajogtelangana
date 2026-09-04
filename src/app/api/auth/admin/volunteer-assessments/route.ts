@@ -4,6 +4,7 @@ import { requireAdminSession } from "@/lib/auth";
 import { User } from "@/models/User";
 import { VolunteerAssessment } from "@/models/VolunteerAssessment";
 import { VolunteerProfile } from "@/models/VolunteerProfile";
+export const dynamic = "force-dynamic";
 
 export async function GET() {
   await connect();

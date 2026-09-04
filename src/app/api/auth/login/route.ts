@@ -5,6 +5,7 @@ import { loginSchema } from "@/validator/authValidationSchema";
 import { User } from "@/models/User";
 import bcrypt from "bcryptjs";
 import vine, { errors } from "@vinejs/vine";
+export const dynamic = "force-dynamic";
 
 connect();
 

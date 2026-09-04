@@ -5,9 +5,10 @@ import { centerSchema } from "@/validator/authValidationSchema";
 import vine, { errors } from "@vinejs/vine";
 import ErrorReporter from "@/validator/ErrorReporter";
 
+export const dynamic = "force-dynamic";
+
 connect();
 
-export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
 export const revalidate = 60;
 

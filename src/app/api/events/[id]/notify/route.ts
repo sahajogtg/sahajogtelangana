@@ -4,6 +4,7 @@ import { authOptions, CustomSession } from "@/app/api/auth/[...nextauth]/options
 import { connect } from "@/database/mongo.config";
 import { Event } from "@/models/Event";
 import { notifyEventSubscribers } from "@/lib/eventNotifications";
+export const dynamic = "force-dynamic";
 
 type RouteContext = { params: { id: string } };
 

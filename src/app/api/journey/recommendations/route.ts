@@ -9,6 +9,7 @@ import ErrorReporter from "@/validator/ErrorReporter";
 import { journeyRecommendationSchema } from "@/validator/authValidationSchema";
 import { getRequiredSession, normalizeEmail } from "@/lib/auth";
 import { enforceJourneyRateLimit } from "@/lib/journeySecurity";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   await connect();

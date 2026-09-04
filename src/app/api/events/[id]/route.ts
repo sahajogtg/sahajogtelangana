@@ -3,6 +3,7 @@ import { connect } from "@/database/mongo.config";
 import { Event } from "@/models/Event";
 import { getServerSession } from "next-auth";
 import { authOptions, CustomSession } from "@/app/api/auth/[...nextauth]/options";
+export const dynamic = "force-dynamic";
 
 connect();
 

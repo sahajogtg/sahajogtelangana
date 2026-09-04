@@ -12,6 +12,8 @@ import {
   MAX_ACTIVE_INVITES,
 } from "@/lib/invites";
 
+export const dynamic = "force-dynamic";
+
 export async function OPTIONS() {
   return NextResponse.json(
     {},

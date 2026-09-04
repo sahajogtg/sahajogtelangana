@@ -4,6 +4,7 @@ import { requireAdminSession } from "@/lib/auth";
 import { User } from "@/models/User";
 import { VolunteerRequest } from "@/models/VolunteerRequest";
 import { VolunteerProfile } from "@/models/VolunteerProfile";
+export const dynamic = "force-dynamic";
 
 type RouteContext = { params: { id: string } };
 

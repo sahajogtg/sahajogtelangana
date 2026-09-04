@@ -4,7 +4,8 @@ import { connect } from "@/database/mongo.config";
 import { authOptions, CustomSession } from "@/app/api/auth/[...nextauth]/options";
 import { Testimonial } from "@/models/Testimonial";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
+
 export const fetchCache = 'force-no-store';
 export const revalidate = 60;
 

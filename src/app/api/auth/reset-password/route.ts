@@ -4,6 +4,7 @@ import Cryptr from "cryptr";
 import Env from "@/config/env";
 import { connect } from "@/database/mongo.config";
 import bcrypt from "bcryptjs";
+export const dynamic = "force-dynamic";
 
 connect();
 

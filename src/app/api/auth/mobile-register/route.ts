@@ -6,6 +6,7 @@ import vine, { errors } from "@vinejs/vine";
 import ErrorReporter from "@/validator/ErrorReporter";
 import bcrypt from "bcryptjs";
 import { signMobileToken } from "@/lib/auth";
+export const dynamic = "force-dynamic";
 
 connect();
 

@@ -5,6 +5,7 @@ import { getSessionFromRequest } from "@/lib/auth";
 import { sendEmail } from "@/config/mail";
 import { Center } from "@/models/Center";
 import mongoose from "mongoose";
+export const dynamic = "force-dynamic";
 
 function toObjectId(value: string) {
   return new mongoose.Types.ObjectId(value);

@@ -4,7 +4,8 @@ import { connect } from "@/database/mongo.config";
 import { requireAdminSession } from '@/lib/auth';
 import { normalizeRole } from '@/lib/roles';
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
+
 export const fetchCache = 'force-no-store';
 export const revalidate = 60;
 

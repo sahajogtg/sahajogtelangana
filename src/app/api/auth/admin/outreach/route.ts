@@ -6,6 +6,7 @@ import { sendEmail } from "@/config/mail";
 import { User } from "@/models/User";
 import { EventRegistration } from "@/models/EventRegistration";
 import { Event } from "@/models/Event";
+export const dynamic = "force-dynamic";
 
 function buildQuery(searchParams: URLSearchParams) {
   const query: Record<string, any> = {};

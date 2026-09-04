@@ -5,6 +5,7 @@ import { Event } from "@/models/Event";
 import mongoose from "mongoose";
 import { requireAdminSession } from "@/lib/auth";
 import { groupRegistrationsByReceipt } from "@/lib/eventRegistrationGroups";
+export const dynamic = "force-dynamic";
 
 // Connect to MongoDB
 connect();

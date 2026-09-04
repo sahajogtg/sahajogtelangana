@@ -4,6 +4,7 @@ import { exactEmailMatch, getSessionFromRequest, normalizeEmail } from "@/lib/au
 import { User } from "@/models/User";
 import { EventRegistration } from "@/models/EventRegistration";
 import { Event } from "@/models/Event";
+export const dynamic = "force-dynamic";
 
 export async function GET(request: NextRequest) {
   await connect();

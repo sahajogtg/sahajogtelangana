@@ -10,6 +10,7 @@ import { CenterConnection } from "@/models/CenterConnection";
 import { User } from "@/models/User";
 import { sendEmail } from "@/config/mail";
 import mongoose from "mongoose";
+export const dynamic = "force-dynamic";
 
 type RouteContext = { params: { id: string } };
 

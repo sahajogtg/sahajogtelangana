@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connect } from "@/database/mongo.config";
 import { getSessionFromRequest } from "@/lib/auth";
 import { VolunteerRequest } from "@/models/VolunteerRequest";
+export const dynamic = "force-dynamic";
 
 export async function POST(request: NextRequest) {
   await connect();

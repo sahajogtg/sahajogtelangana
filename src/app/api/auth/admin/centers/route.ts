@@ -7,6 +7,8 @@ import ErrorReporter from "@/validator/ErrorReporter";
 import { getServerSession } from "next-auth";
 import { authOptions, CustomSession } from "@/app/api/auth/[...nextauth]/options";
 
+export const dynamic = "force-dynamic";
+
 interface CenterFormPayload {
   address: string;
   day: string;
@@ -50,7 +52,6 @@ export async function POST(request: NextRequest) {
   }
 }
 
-export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
 export const revalidate = 60;
 
